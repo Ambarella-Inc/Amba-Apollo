@@ -1,0 +1,45 @@
+###############################################################################
+## apollo/cyber/croutine/detail/Makefile
+##
+## History:
+##    2022/09/08 - [Zhi He] Created file
+##
+## Copyright (C) 2022 Ambarella International LP
+##
+## Licensed under the Apache License, Version 2.0 (the "License");
+## you may not use this file except in compliance with the License.
+## You may obtain a copy of the License at
+##
+## http://www.apache.org/licenses/LICENSE-2.0
+##
+## Unless required by applicable law or agreed to in writing, software
+## distributed under the License is distributed on an "AS IS" BASIS,
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## See the License for the specific language governing permissions and
+## limitations under the License.
+##
+##################################################################################
+
+default: all
+
+include ../../../ambabuild/prerequisites.mk
+
+include $(TOP_DIR)/ambabuild/config.mk
+include $(TOP_DIR)/ambabuild/extern_lib.mk
+
+COMPONENT_ASM_SRC := swap_aarch64.S
+COMPONENT_ASM_OBJ := $(COMPONENT_ASM_SRC:.S=.o)
+
+COMPONENT_SRC := routine_context.cc
+COMPONENT_OBJ := $(COMPONENT_SRC:.cc=.o)
+
+COMPONENT_SRC += $(COMPONENT_ASM_SRC)
+
+COMPONENT_OBJ += $(COMPONENT_ASM_OBJ)
+
+COMPONENT_INC := $(EXTERN_LIB_GLOG_INC) $(EXTERN_LIB_GFLAGS_INC) $(EXTERN_LIB_PROTOBUF_INC)
+##cyber_croutine_detail_src = $(COMPONENT_SRC) $(COMPONENT_ASM_SRC)
+##cyber_croutine_detail_obj = $(COMPONENT_OBJ) $(COMPONENT_ASM_OBJ)
+
+include $(TOP_DIR)/ambabuild/rules.mk
+

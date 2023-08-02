@@ -1,0 +1,91 @@
+1) How to compile
+
+1.1) Compilation
+    cd apollo/cyber
+    source ../ambabuild/cyber.env
+    make && make install_dep_libs
+    make all_self_tests
+    make all_example_tests
+
+1.2) Compile result is under apollo/out:
+    out/AARCH64/lib/libcyber.so is Cyber RT library;
+    out/AARCH64/binary are test files;
+    out/AARCH64/install are needed software modules, like CyberRT,FastRTPS;
+    out/AARCH64/obj are intermediate files during compiling;
+    out/AARCH64/apollo includes conf and dag files and some shared libs needed by tests
+
+2) Preparation for test
+
+2.1) Copy needed software modules to Ambarella CV3 platform.
+    cp apollo/out/AARCH64/install/* /usr/lib -rf
+
+2.2)Copy needed software modules to Ambarella CV3 platform.
+    cp apollo/out/AARCH64/apollo / -rf
+
+2.3) Copy test files to Ambarella CV3 platform (on sdcard for example)
+    cp apollo/out/AARCH64/binary /sdcard/ -rf
+plug the sdcard to CV3 board
+
+3) Run self_tests
+self_tests are to test CyberRT’s self  basic function.
+To run all self_tests:
+    cd /sdcard/binary
+    chmod +x *
+    ./cyber_self_test.sh
+You can also run each test separately.
+
+4) Run example_tests
+example_tests are some examples using CyberRT to do communication or dynamic compoment loading.
+
+4.1)listener and talker
+To run this test open two different consoles:
+In the first one launch: ./listener_test
+In the second one: ./talker_test
+
+4.2) service_test
+To run this test: ./service_test
+
+4.3)paramserver_test
+To run this test: ./paramserver_test
+
+4.4)common_component_example
+To run this test open three different consoles:
+In the first one launch:  ./mainboard_test -d common.dag
+In the second one:  ./channel_test_writer
+In the third one :  ./channel_prediction_writer
+
+4.5) timer_component_example
+To run this test:  ./mainboard_test -d timer.dag
+
+5)Tips
+When you try writer_reader_test , listener_test and common_component_example
+you may meet program crach. To solve this you can compile them with -O0  separately.
+We may fix this problem in the future.
+Below are details (suppose you have compiled cyber already):
+
+5.1) change compile config
+In Apollo/ambabuild/config.mk :138
+change  COMPILE_FLAGS += -O3  to  COMPILE_FLAGS += -O0
+
+5.2)clean some objs compiled with -O3
+    cd apollo/out/AARCH64/objs/cyber
+    rm node/writer_reader_test.*
+    rm examples/listener.*
+    rm examples/common_component_example/common_component_example.*
+
+5.3)Recompile with -O0
+    cd apollo/cyber
+    make && make install_dep_libs
+    make all_self_tests
+    make all_example_tests
+There may be some warnings but it’s alright.
+
+5.4) change compile config back
+In Apollo/ambabuild/config.mk :138
+change  COMPILE_FLAGS += -O0  to  COMPILE_FLAGS += -O3
+We only need to compile these specific src with -O0 ,
+for most others we still compile with -O3.
+
+5.5)update and test again
+After recompilation you should update test files and needed libs
+according to 2) Preparation for test then you can test them again.

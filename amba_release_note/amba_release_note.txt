@@ -1,0 +1,334 @@
+1) Overview
+This release is based on Apollo 7.0, with platform adaption modification on Ambarella CV3.
+Apollo website: https://www.apollo.auto/autonomous-driving
+Apollo source code on github: https://github.com/ApolloAuto/apollo
+
+The Ambarella modification on Apollo includes:
+1.1) Add pre-built depended libraries, like Fast DDS, protobuf, etc.
+1.2) Add native complile system, the native compiling system does not depend on bazel, java, etc.
+1.3) Cyber RT: extend cross-cluster scheduling, with zero copy (TO DO)
+1.4) Apollo modules: add adaption layer for multimedia and machine learning part on Ambarella platform (TO DO)
+
+Apollo related code locations:
+ auto_mw/apollo: Ambarella modified Baidu Apollo 7.0
+ auto_mw/apollo/cyber: Cyber RT in Apollo
+ auto_mw/apollo/modules: Apollo modules
+ auto_mw/apollo/ambabuild: native makefile for Apollo/Cyber RT
+ auto_mw/apollo/amba_release_note: ambarella release note for modification of Apollo 7.0
+ auto_mw/apollo/out: compiling output directory
+
+Base communication (DDS, etc) related code locations:
+ auto_mw/base_communication: base communication relatted, like FastDDS, CycloneDDS, etc.
+ auto_mw/base_communication/FastDDS/armv8.2: FastDDS prebuilt library, version 1.5.0 and version 2.7.1
+ auto_mw/base_communication/FastDDS/FastDDS-2.7.1: FastDDS 2.7.1 examples
+ auto_mw/base_communication/FastDDS/FastDDS-2.7.1/Benchmark: FastDDS 2.7.1 benchmark
+ auto_mw/base_communication/FastDDS/FastDDS-2.7.1/performance: FastDDS 2.7.1 performance tool, include latency and throughput
+ auto_mw/base_communication/FastDDS/FastRTPS-1.5.0: FastDDS 1.5.0 examples and tools
+ auto_mw/base_communication/CycloneDDS/armv8.2: CycloneDDS prebuilt library
+ auto_mw/base_communication/CycloneDDS/gen_tools: CycloneDDS generate tool
+ auto_mw/base_communication/CycloneDDS/unit_test/helloworld: example of CycloneDDS
+
+Depended libraries:
+ auto_mw/base_library/prebuilt/armv8.2: depended libraries on SoC
+ auto_mw/base_library/prebuilt/x86_x64: depended libraries and tools on Linux (compiling env)
+
+
+2) Current release version: 0.1 (alpha)
+The version 0.1 include the cyber RT and its related components, like Fast DDS, it also includes cyber RT's self tests.
+Apollo modules is not ready.
+
+2.1) Prerequisite:
+ Install linaro toolchain 2022-04 (gcc 11.2), contact Ambarella support team to get the tool chain. The toolchain is expected at /usr/local/cortex-a76-2022.04-gcc11.2-linux5.15/.
+
+2.2) Extract package:
+ tar jxvf amba_auto_mw_20221111_v0.1.tar.bz2
+
+
+3) Apollo Cyber RT
+
+3.1) Compile Apollo Cyber RT:
+ cd apollo/cyber
+ source ../ambabuild/cyber.env
+ make && make all_self_tests
+ make all_self_tests
+ make all_example_tests
+
+3.2) Compile result is under apollo/out:
+ out/AARCH64/lib/libcyber.so is Cyber RT library
+ out/AARCH64/binary are self tests and examples
+ out/AARCH64/apollo are config files for test and examples
+ out/AARCH64/install are needed software modules, like Fast DDS
+ out/AARCH64/obj are intermediate files during compiling
+
+3.3) Copy Cyber RT libraries and binaries to CV3 board
+ 3.3.1) use sdcard or mount share folder (mount -t cifs -o domain=xxx,username=xxx,password=xxx //10.0.0.1/share_board /tmp/win)
+ 3.3.2) copy auto_mw/apollo/out/AARCH64/apollo to /tmp/win
+ 3.3.3) copy auto_mw/apollo/out/AARCH64/binary to /tmp/win
+ 3.3.4) copy auto_mw/apollo/out/AARCH64/install/usr to /tmp/win
+
+3.4) Set env for each console on SoC
+ export LD_LIBRARY_PATH=/tmp/win/usr/lib/
+ export PATH=$PATH:/tmp/win/binary
+ export GLOG_alsologtostderr=1
+ export GLOG_colorlogtostderr=1
+ export GLOG_minloglevel=0
+ export sysmo_start=0
+
+3.5) Run self test
+ 3.5.1) cd /tmp/win/binary
+ 3.5.2) ./cyber_self_test.sh
+
+3.6) Run listener and talker example (two consoles)
+ 3.6.1) listener_test //first console
+ 3.6.2) talker_test   //second console
+
+3.7) Run service test and paramserver test (two consoles)
+ 3.7.1) service_test       //first console
+ 3.7.2) paramserver_test   //second console
+
+3.8) Run common component example (three consoles)
+ 3.8.1) cd /tmp/win/binary && mainboard_test -d common.dag    //first console
+ 3.8.2) channel_test_writer                                   //second console
+ 3.8.3) channel_prediction_writer                             //third console
+
+3.9) Run timer component example
+ 3.9.1) cd /tmp/win/binary && ./mainboard_test -d timer.dag
+
+
+4) FastDDS 2.7.1 examples
+
+4.1) Compile FastDDS 2.7.1 examples
+
+4.1.1) Compile FastDDS 2.7.1 hello world example:
+ 4.1.1.1) cd auto_mw/base_communication/FastDDS/FastDDS-2.7.1/HelloWorldExample
+ 4.1.1.2) make && make install_dep_libs
+
+4.1.2) Compile FastDDS 2.7.1 hello world data sharing example:
+ 4.1.2.1) cd auto_mw/base_communication/FastDDS/FastDDS-2.7.1/HelloWorldExampleDataSharing
+ 4.1.2.2) make && make install_dep_libs
+
+4.1.3) Compile FastDDS 2.7.1 hello world share memory example:
+ 4.1.3.1) cd auto_mw/base_communication/FastDDS/FastDDS-2.7.1/HelloWorldExampleSharedMem
+ 4.1.3.2) make && make install_dep_libs
+
+4.1.4) Compile FastDDS 2.7.1 hello world TCP example:
+ 4.1.4.1) cd auto_mw/base_communication/FastDDS/FastDDS-2.7.1/HelloWorldExampleTCP
+ 4.1.4.2) make && make install_dep_libs
+
+4.2) Compile result is under current location:
+ install/ is needed libraries
+ bin/ is the example
+
+4.3) Copy Cyber RT libraries and binaries to CV3 board
+ 4.3.1) use sdcard or mount share folder (mount -t cifs -o domain=xxx,username=xxx,password=xxx //10.0.0.1/share_board /tmp/win)
+ 4.3.2) copy bin/* to /tmp/win/binary
+ 4.3.3) copy install/* to /tmp/win/usr/lib/
+
+4.4) Set env for each console on SoC
+ export LD_LIBRARY_PATH=/tmp/win/usr/lib/
+ export PATH=$PATH:/tmp/win/binary
+ export GLOG_alsologtostderr=1
+ export GLOG_colorlogtostderr=1
+ export GLOG_minloglevel=0
+ export sysmo_start=0
+
+4.5) Run FastDDS 2.7.1 examples
+
+4.5.1) Run FastDDS 2.7.1 Hello world example (two consoles)
+ 4.5.1.1) HelloWorldExample_2.7.1 publisher   //first console
+ 4.5.1.2) HelloWorldExample_2.7.1 subscriber  //second console
+
+4.5.2) Run FastDDS 2.7.1 Hello world TCP example (two consoles)
+ 4.5.2.1) HelloWorldExampleTCP_2.7.1 publisher   //first console
+ 4.5.2.2) HelloWorldExampleTCP_2.7.1 subscriber  //second console
+
+4.5.3) Run FastDDS 2.7.1 Hello world data sharing example (two consoles)
+ 4.5.3.1) HelloWorldExample_DataSharing publisher   //first console
+ 4.5.3.2) HelloWorldExample_DataSharing subscriber  //second console
+
+4.5.4) Run FastDDS 2.7.1 Hello world share memory example (two consoles)
+ 4.5.4.1) HelloWorldExample_SharedMem publisher   //first console
+ 4.5.4.2) HelloWorldExample_SharedMem subscriber  //second console
+
+
+5) FastDDS 2.7.1 performance benchmark
+
+5.1) Copy performance benchmark to SoC
+ copy auto_mw/base_communication/FastDDS/FastDDS-2.7.1/performance/latency/LatencyTest to /tmp/win/binary/
+ copy auto_mw/base_communication/FastDDS/FastDDS-2.7.1/performance/latency/ThroughputTest to /tmp/win/binary/
+
+5.2) Set env for each console on SoC
+ export LD_LIBRARY_PATH=/tmp/win/usr/lib/
+ export PATH=$PATH:/tmp/win/binary
+ export GLOG_alsologtostderr=1
+ export GLOG_colorlogtostderr=1
+ export GLOG_minloglevel=0
+ export sysmo_start=0
+
+5.3) Intra process delay
+ 5.3.1) LatencyTest both -r besteffort -s 10000
+ 5.3.2) LatencyTest both -r reliable -s 10000
+
+5.4) Remote node reliable delay (two consoles on two SoCs)
+ 5.4.1) LatencyTest publisher -r reliable -s 1000 --shared_memory=on
+ 5.4.2) LatencyTest subscriber -r reliable -s 1000 --shared_memory=on
+
+5.5) Remote node besteffort delay (two consoles on two SoCs)
+ 5.5.1) LatencyTest publisher -r besteffort -s 1000 --shared_memory=on
+ 5.5.2) LatencyTest subscriber -r besteffort -s 1000 --shared_memory=on
+
+5.6) Remote node reliable throughput (two consoles on two SoCs)
+ 5.6.1) ThroughputTest publisher -r reliable
+ 5.6.2) ThroughputTest subscriber -r reliable
+
+5.7) Remote node besteffort delay (two consoles on two SoCs)
+ 5.7.1) ThroughputTest publisher -r besteffort
+ 5.7.2) ThroughputTest subscriber -r besteffort
+
+
+6) FastDDS 1.5.0 examples
+
+6.1) Compile FastDDS 1.5.0 examples
+ 6.1.1) cd auto_mw/base_communication/FastDDS/FastRTPS-1.5.0/HelloWorldExample
+ 6.1.2) make && make install_dep_libs
+
+6.2) Compile result is under current location:
+ install/ is needed libraries
+ bin/ is the example
+
+6.3) Copy Cyber RT libraries and binaries to CV3 board
+ 6.3.1) use sdcard or mount share folder (mount -t cifs -o domain=xxx,username=xxx,password=xxx //10.0.0.1/share_board /tmp/win)
+ 6.3.2) copy bin/* to /tmp/win/binary
+ 6.3.3) copy install/* to /tmp/win/usr/lib/
+
+6.4) Set env for each console on SoC
+ export LD_LIBRARY_PATH=/tmp/win/usr/lib/
+ export PATH=$PATH:/tmp/win/binary
+ export GLOG_alsologtostderr=1
+ export GLOG_colorlogtostderr=1
+ export GLOG_minloglevel=0
+ export sysmo_start=0
+
+6.5) Run FastDDS 1.5.0 examples (two consoles)
+ 6.5.1) HelloWorldExample_1.5.0 publisher   //first console
+ 6.5.2) HelloWorldExample_1.5.0 subscriber  //second console
+
+
+7) CycloneDDS examples
+
+7.1) Compile CycloneDDS examples
+ 7.1.1) cd auto_mw/base_communication/CycloneDDS/unit_test/helloworld
+ 7.1.2) make && make install_dep_libs
+
+7.2) Compile result is under current location:
+ install/ is needed libraries
+ bin/ is the example
+
+7.3) Copy Cyber RT libraries and binaries to CV3 board
+ 6.3.1) use sdcard or mount share folder (mount -t cifs -o domain=xxx,username=xxx,password=xxx //10.0.0.1/share_board /tmp/win)
+ 6.3.2) copy bin/* to /tmp/win/binary
+ 6.3.3) copy install/* to /tmp/win/usr/lib/
+
+7.4) Set env for each console on SoC
+ export LD_LIBRARY_PATH=/tmp/win/usr/lib/
+ export PATH=$PATH:/tmp/win/binary
+ export GLOG_alsologtostderr=1
+ export GLOG_colorlogtostderr=1
+ export GLOG_minloglevel=0
+ export sysmo_start=0
+
+7.5) Run CycloneDDS examples (two consoles)
+ 7.5.1) cyclonedds_hw_subscriber   //first console
+ 7.5.2) cyclonedds_hw_publisher    //second console
+
+8) Performance Table
+
+ 8.1) FastDDS 2.7.1 Performance Table
+
+  8.1.1) Intra-process delay
+
+   8.1.1.1) Intra-process delay (besteffort)
+/tmp/win/binary # LatencyTest both -r besteffort -s 10000
+Performing intraprocess test with 1 subscribers and 10000 samples
+Overhead 0.0596404 ns
+Printing round-trip times in us, statistics for 10000 samples
+   Bytes, Samples,   stdev,    mean,     min,     50%,     90%,     99%,  99.99%,     max
+--------,--------,--------,--------,--------,--------,--------,--------,--------,--------,
+      16,   10000,   0.692,   4.192,   3.990,   4.160,   4.240,   4.740,  11.230,  69.700
+    1024,   10000,   0.203,   4.448,   4.250,   4.420,   4.500,   5.200,   9.500,  11.700
+   64512,   10000,   0.612,  22.467,  21.920,  22.350,  22.560,  25.030,  34.870,  45.710
+ 1048576,   10000,   7.298, 417.362, 397.350, 416.820, 426.150, 434.430, 542.690, 662.160
+EVERYTHING STOPPED FINE
+
+   8.1.1.2) Intra-process delay (reliable)
+/tmp/win/binary # LatencyTest both -r reliable -s 10000
+Performing intraprocess test with 1 subscribers and 10000 samples
+Overhead 0.0596603 ns
+Printing round-trip times in us, statistics for 10000 samples
+   Bytes, Samples,   stdev,    mean,     min,     50%,     90%,     99%,  99.99%,     max
+--------,--------,--------,--------,--------,--------,--------,--------,--------,--------,
+      16,   10000,   0.570,   5.522,   5.120,   5.430,   5.530,   9.240,  15.720,  15.790
+    1024,   10000,   0.570,   5.641,   5.260,   5.540,   5.650,   9.540,  15.670,  16.130
+   64512,   10000,   1.530,  24.531,  23.490,  24.070,  24.920,  30.680,  40.080,  48.050
+ 1048576,   10000,   8.136, 443.415, 412.080, 443.890, 452.050, 462.450, 496.280, 703.080
+EVERYTHING STOPPED FINE
+
+  8.1.2) Remote node delay
+
+   8.1.2.1) Remote node delay (besteffort)
+~ # LatencyTest publisher -r besteffort -s 1000 --shared_memory=on
+Performing test with 1 subscribers and 1000 samples
+Overhead 0.0621179 ns
+Printing round-trip times in us, statistics for 1000 samples
+   Bytes, Samples,   stdev,    mean,     min,     50%,     90%,     99%,  99.99%,     max
+--------,--------,--------,--------,--------,--------,--------,--------,--------,--------,
+      16,    1000,   2.473, 175.122, 112.958, 174.878, 175.908, 180.958, 192.968, 197.938
+    1024,    1000,   0.994, 194.274, 192.968, 194.088, 194.978, 198.288, 205.308, 206.528
+   64512,    1000,   5.058, 736.983, 715.128, 735.668, 742.418, 755.008, 779.038, 793.738
+ 1048576,     996,  50.176,9218.669,9187.778,9213.378,9232.598,9284.078,9756.848,10388.988
+EVERYTHING STOPPED FINE
+
+   8.1.2.2) Remote node delay (reliable)
+~ # LatencyTest publisher -r reliable -s 1000 --shared_memory=on
+Performing test with 1 subscribers and 1000 samples
+Overhead 0.11996 ns
+Printing round-trip times in us, statistics for 1000 samples
+   Bytes, Samples,   stdev,    mean,     min,     50%,     90%,     99%,  99.99%,     max
+--------,--------,--------,--------,--------,--------,--------,--------,--------,--------,
+      16,    1000,   9.192, 186.133, 105.270, 187.230, 188.500, 191.550, 195.400, 212.940
+    1024,    1000,  19.001, 208.305, 113.120, 207.840, 211.590, 214.960, 230.960, 773.690
+   64512,    1000,  46.562, 750.646, 731.760, 747.760, 753.070, 761.870,1334.620,2083.330
+ 1048576,    1000, 713.426,9959.453,9219.140,9842.400,10673.340,12186.200,15347.070,15978.320
+EVERYTHING STOPPED FINE
+
+  8.1.3) Throughput
+
+   8.1.3.1) Throughput (besteffort)
+~ # ThroughputTest  publisher -r besteffort
+Starting throughput test publisher agent
+Publisher's clock access overhead: 0.0596803 us
+Recovery times: 5,
+Pub: Waiting for command discovery
+Pub: Discovery command complete
+
+[            TEST           ][                    PUBLISHER                      ][                            SUBSCRIBER                        ]
+[ Bytes,Demand,Recovery Time][Sent Samples,Send Time(us),   Packs/sec,  MBits/sec][Rec Samples,Lost Samples,Rec Time(us),   Packs/sec,  MBits/sec]
+[------,------,-------------][------------,-------------,------------,-----------][-----------,------------,------------,------------,-----------]
+   1024, 10000,            5,       280000,      5066809,   55261.606,    452.703,      279630,         370,     5091834,   54917.342,    449.883
+
+EVERYTHING STOPPED FINE
+
+   8.1.3.2) Throughput (reliable)
+~ # ThroughputTest  publisher -r reliable
+Starting throughput test publisher agent
+Publisher's clock access overhead: 0.0621379 us
+Recovery times: 5,
+Pub: Waiting for command discovery
+Pub: Discovery command complete
+
+[            TEST           ][                    PUBLISHER                      ][                            SUBSCRIBER                        ]
+[ Bytes,Demand,Recovery Time][Sent Samples,Send Time(us),   Packs/sec,  MBits/sec][Rec Samples,Lost Samples,Rec Time(us),   Packs/sec,  MBits/sec]
+[------,------,-------------][------------,-------------,------------,-----------][-----------,------------,------------,------------,-----------]
+   1024, 10000,            5,        80000,      5097863,   15692.850,    128.556,       80000,           0,     5383906,   14859.101,    121.726
+
+EVERYTHING STOPPED FINE

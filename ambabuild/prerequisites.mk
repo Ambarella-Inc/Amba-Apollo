@@ -20,7 +20,7 @@
 ##
 ##################################################################################
 
-UNIQUE_NAME_TAG ?= apollo
+UNIQUE_NAME_TAG ?= amba-apollo
 TMP_STR := $(subst /$(UNIQUE_NAME_TAG), ,$(shell pwd))
 #$(info $(TMP_STR))
 

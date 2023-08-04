@@ -17,8 +17,10 @@
 extern PROTOBUF_INTERNAL_EXPORT_cyber_2fproto_2frecord_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_ChannelCache_cyber_2fproto_2frecord_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_cyber_2fproto_2frecord_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_ChunkBodyCache_cyber_2fproto_2frecord_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_cyber_2fproto_2frecord_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_ChunkHeaderCache_cyber_2fproto_2frecord_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_cyber_2fproto_2frecord_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_MapInfo_cyber_2fproto_2frecord_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_cyber_2fproto_2frecord_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<3> scc_info_SingleIndex_cyber_2fproto_2frecord_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_cyber_2fproto_2frecord_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_SingleMessage_cyber_2fproto_2frecord_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_cyber_2fproto_2frecord_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_VehicleInfo_cyber_2fproto_2frecord_2eproto;
 namespace apollo {
 namespace cyber {
 namespace proto {
@@ -42,6 +44,14 @@ class SingleMessageDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<SingleMessage> _instance;
 } _SingleMessage_default_instance_;
+class MapInfoDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<MapInfo> _instance;
+} _MapInfo_default_instance_;
+class VehicleInfoDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<VehicleInfo> _instance;
+} _VehicleInfo_default_instance_;
 class HeaderDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Header> _instance;
@@ -154,8 +164,10 @@ static void InitDefaultsscc_info_Header_cyber_2fproto_2frecord_2eproto() {
   }
 }
 
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Header_cyber_2fproto_2frecord_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_Header_cyber_2fproto_2frecord_2eproto}, {}};
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<2> scc_info_Header_cyber_2fproto_2frecord_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 2, 0, InitDefaultsscc_info_Header_cyber_2fproto_2frecord_2eproto}, {
+      &scc_info_MapInfo_cyber_2fproto_2frecord_2eproto.base,
+      &scc_info_VehicleInfo_cyber_2fproto_2frecord_2eproto.base,}};
 
 static void InitDefaultsscc_info_Index_cyber_2fproto_2frecord_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -170,6 +182,19 @@ static void InitDefaultsscc_info_Index_cyber_2fproto_2frecord_2eproto() {
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_Index_cyber_2fproto_2frecord_2eproto =
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_Index_cyber_2fproto_2frecord_2eproto}, {
       &scc_info_SingleIndex_cyber_2fproto_2frecord_2eproto.base,}};
+
+static void InitDefaultsscc_info_MapInfo_cyber_2fproto_2frecord_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::apollo::cyber::proto::_MapInfo_default_instance_;
+    new (ptr) ::apollo::cyber::proto::MapInfo();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_MapInfo_cyber_2fproto_2frecord_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_MapInfo_cyber_2fproto_2frecord_2eproto}, {}};
 
 static void InitDefaultsscc_info_SingleIndex_cyber_2fproto_2frecord_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -200,7 +225,20 @@ static void InitDefaultsscc_info_SingleMessage_cyber_2fproto_2frecord_2eproto() 
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_SingleMessage_cyber_2fproto_2frecord_2eproto =
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_SingleMessage_cyber_2fproto_2frecord_2eproto}, {}};
 
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_cyber_2fproto_2frecord_2eproto[10];
+static void InitDefaultsscc_info_VehicleInfo_cyber_2fproto_2frecord_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::apollo::cyber::proto::_VehicleInfo_default_instance_;
+    new (ptr) ::apollo::cyber::proto::VehicleInfo();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_VehicleInfo_cyber_2fproto_2frecord_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_VehicleInfo_cyber_2fproto_2frecord_2eproto}, {}};
+
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_cyber_2fproto_2frecord_2eproto[12];
 static const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* file_level_enum_descriptors_cyber_2fproto_2frecord_2eproto[2];
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_cyber_2fproto_2frecord_2eproto = nullptr;
 
@@ -265,6 +303,22 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_cyber_2fproto_2frecord_2eproto
   0,
   2,
   1,
+  PROTOBUF_FIELD_OFFSET(::apollo::cyber::proto::MapInfo, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::apollo::cyber::proto::MapInfo, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::apollo::cyber::proto::MapInfo, name_),
+  PROTOBUF_FIELD_OFFSET(::apollo::cyber::proto::MapInfo, version_),
+  0,
+  1,
+  PROTOBUF_FIELD_OFFSET(::apollo::cyber::proto::VehicleInfo, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::apollo::cyber::proto::VehicleInfo, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::apollo::cyber::proto::VehicleInfo, name_),
+  0,
   PROTOBUF_FIELD_OFFSET(::apollo::cyber::proto::Header, _has_bits_),
   PROTOBUF_FIELD_OFFSET(::apollo::cyber::proto::Header, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -285,21 +339,25 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_cyber_2fproto_2frecord_2eproto
   PROTOBUF_FIELD_OFFSET(::apollo::cyber::proto::Header, is_complete_),
   PROTOBUF_FIELD_OFFSET(::apollo::cyber::proto::Header, chunk_raw_size_),
   PROTOBUF_FIELD_OFFSET(::apollo::cyber::proto::Header, segment_raw_size_),
-  0,
-  1,
-  7,
+  PROTOBUF_FIELD_OFFSET(::apollo::cyber::proto::Header, map_info_),
+  PROTOBUF_FIELD_OFFSET(::apollo::cyber::proto::Header, vehicle_info_),
   2,
   3,
+  9,
   4,
   5,
   6,
-  9,
-  10,
+  7,
+  8,
   11,
   12,
-  8,
   13,
   14,
+  10,
+  15,
+  16,
+  0,
+  1,
   PROTOBUF_FIELD_OFFSET(::apollo::cyber::proto::Channel, _has_bits_),
   PROTOBUF_FIELD_OFFSET(::apollo::cyber::proto::Channel, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -343,11 +401,13 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 29, 35, sizeof(::apollo::cyber::proto::ChunkBodyCache)},
   { 36, 45, sizeof(::apollo::cyber::proto::ChannelCache)},
   { 49, 57, sizeof(::apollo::cyber::proto::SingleMessage)},
-  { 60, 80, sizeof(::apollo::cyber::proto::Header)},
-  { 95, 103, sizeof(::apollo::cyber::proto::Channel)},
-  { 106, 115, sizeof(::apollo::cyber::proto::ChunkHeader)},
-  { 119, -1, sizeof(::apollo::cyber::proto::ChunkBody)},
-  { 125, -1, sizeof(::apollo::cyber::proto::Index)},
+  { 60, 67, sizeof(::apollo::cyber::proto::MapInfo)},
+  { 69, 75, sizeof(::apollo::cyber::proto::VehicleInfo)},
+  { 76, 98, sizeof(::apollo::cyber::proto::Header)},
+  { 115, 123, sizeof(::apollo::cyber::proto::Channel)},
+  { 126, 135, sizeof(::apollo::cyber::proto::ChunkHeader)},
+  { 139, -1, sizeof(::apollo::cyber::proto::ChunkBody)},
+  { 145, -1, sizeof(::apollo::cyber::proto::Index)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -356,6 +416,8 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::apollo::cyber::proto::_ChunkBodyCache_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::apollo::cyber::proto::_ChannelCache_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::apollo::cyber::proto::_SingleMessage_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::apollo::cyber::proto::_MapInfo_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::apollo::cyber::proto::_VehicleInfo_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::apollo::cyber::proto::_Header_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::apollo::cyber::proto::_Channel_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::apollo::cyber::proto::_ChunkHeader_default_instance_),
@@ -379,34 +441,38 @@ const char descriptor_table_protodef_cyber_2fproto_2frecord_2eproto[] PROTOBUF_S
   "Cache\022\026\n\016message_number\030\001 \001(\004\022\014\n\004name\030\002 "
   "\001(\t\022\024\n\014message_type\030\003 \001(\t\022\022\n\nproto_desc\030"
   "\004 \001(\014\"D\n\rSingleMessage\022\024\n\014channel_name\030\001"
-  " \001(\t\022\014\n\004time\030\002 \001(\004\022\017\n\007content\030\003 \001(\014\"\221\003\n\006"
-  "Header\022\025\n\rmajor_version\030\001 \001(\r\022\025\n\rminor_v"
-  "ersion\030\002 \001(\r\0222\n\010compress\030\003 \001(\0162 .apollo."
-  "cyber.proto.CompressType\022\026\n\016chunk_interv"
-  "al\030\004 \001(\004\022\030\n\020segment_interval\030\005 \001(\004\022\031\n\016in"
-  "dex_position\030\006 \001(\004:\0010\022\027\n\014chunk_number\030\007 "
-  "\001(\004:\0010\022\031\n\016channel_number\030\010 \001(\004:\0010\022\025\n\nbeg"
-  "in_time\030\t \001(\004:\0010\022\023\n\010end_time\030\n \001(\004:\0010\022\031\n"
-  "\016message_number\030\013 \001(\004:\0010\022\017\n\004size\030\014 \001(\004:\001"
-  "0\022\032\n\013is_complete\030\r \001(\010:\005false\022\026\n\016chunk_r"
-  "aw_size\030\016 \001(\004\022\030\n\020segment_raw_size\030\017 \001(\004\""
-  "A\n\007Channel\022\014\n\004name\030\001 \001(\t\022\024\n\014message_type"
-  "\030\002 \001(\t\022\022\n\nproto_desc\030\003 \001(\014\"]\n\013ChunkHeade"
-  "r\022\022\n\nbegin_time\030\001 \001(\004\022\020\n\010end_time\030\002 \001(\004\022"
-  "\026\n\016message_number\030\003 \001(\004\022\020\n\010raw_size\030\004 \001("
-  "\004\"@\n\tChunkBody\0223\n\010messages\030\001 \003(\0132!.apoll"
-  "o.cyber.proto.SingleMessage\"9\n\005Index\0220\n\007"
-  "indexes\030\001 \003(\0132\037.apollo.cyber.proto.Singl"
-  "eIndex*{\n\013SectionType\022\022\n\016SECTION_HEADER\020"
-  "\000\022\030\n\024SECTION_CHUNK_HEADER\020\001\022\026\n\022SECTION_C"
-  "HUNK_BODY\020\002\022\021\n\rSECTION_INDEX\020\003\022\023\n\017SECTIO"
-  "N_CHANNEL\020\004*E\n\014CompressType\022\021\n\rCOMPRESS_"
-  "NONE\020\000\022\020\n\014COMPRESS_BZ2\020\001\022\020\n\014COMPRESS_LZ4"
-  "\020\002"
+  " \001(\t\022\014\n\004time\030\002 \001(\004\022\017\n\007content\030\003 \001(\014\"(\n\007M"
+  "apInfo\022\014\n\004name\030\001 \001(\t\022\017\n\007version\030\002 \001(\t\"\033\n"
+  "\013VehicleInfo\022\014\n\004name\030\001 \001(\t\"\367\003\n\006Header\022\025\n"
+  "\rmajor_version\030\001 \001(\r\022\025\n\rminor_version\030\002 "
+  "\001(\r\0222\n\010compress\030\003 \001(\0162 .apollo.cyber.pro"
+  "to.CompressType\022\026\n\016chunk_interval\030\004 \001(\004\022"
+  "\030\n\020segment_interval\030\005 \001(\004\022\031\n\016index_posit"
+  "ion\030\006 \001(\004:\0010\022\027\n\014chunk_number\030\007 \001(\004:\0010\022\031\n"
+  "\016channel_number\030\010 \001(\004:\0010\022\025\n\nbegin_time\030\t"
+  " \001(\004:\0010\022\023\n\010end_time\030\n \001(\004:\0010\022\031\n\016message_"
+  "number\030\013 \001(\004:\0010\022\017\n\004size\030\014 \001(\004:\0010\022\032\n\013is_c"
+  "omplete\030\r \001(\010:\005false\022\026\n\016chunk_raw_size\030\016"
+  " \001(\004\022\030\n\020segment_raw_size\030\017 \001(\004\022-\n\010map_in"
+  "fo\030\020 \001(\0132\033.apollo.cyber.proto.MapInfo\0225\n"
+  "\014vehicle_info\030\021 \001(\0132\037.apollo.cyber.proto"
+  ".VehicleInfo\"A\n\007Channel\022\014\n\004name\030\001 \001(\t\022\024\n"
+  "\014message_type\030\002 \001(\t\022\022\n\nproto_desc\030\003 \001(\014\""
+  "]\n\013ChunkHeader\022\022\n\nbegin_time\030\001 \001(\004\022\020\n\010en"
+  "d_time\030\002 \001(\004\022\026\n\016message_number\030\003 \001(\004\022\020\n\010"
+  "raw_size\030\004 \001(\004\"@\n\tChunkBody\0223\n\010messages\030"
+  "\001 \003(\0132!.apollo.cyber.proto.SingleMessage"
+  "\"9\n\005Index\0220\n\007indexes\030\001 \003(\0132\037.apollo.cybe"
+  "r.proto.SingleIndex*{\n\013SectionType\022\022\n\016SE"
+  "CTION_HEADER\020\000\022\030\n\024SECTION_CHUNK_HEADER\020\001"
+  "\022\026\n\022SECTION_CHUNK_BODY\020\002\022\021\n\rSECTION_INDE"
+  "X\020\003\022\023\n\017SECTION_CHANNEL\020\004*E\n\014CompressType"
+  "\022\021\n\rCOMPRESS_NONE\020\000\022\020\n\014COMPRESS_BZ2\020\001\022\020\n"
+  "\014COMPRESS_LZ4\020\002"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_cyber_2fproto_2frecord_2eproto_deps[1] = {
 };
-static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_cyber_2fproto_2frecord_2eproto_sccs[10] = {
+static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_cyber_2fproto_2frecord_2eproto_sccs[12] = {
   &scc_info_Channel_cyber_2fproto_2frecord_2eproto.base,
   &scc_info_ChannelCache_cyber_2fproto_2frecord_2eproto.base,
   &scc_info_ChunkBody_cyber_2fproto_2frecord_2eproto.base,
@@ -415,15 +481,17 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_cyb
   &scc_info_ChunkHeaderCache_cyber_2fproto_2frecord_2eproto.base,
   &scc_info_Header_cyber_2fproto_2frecord_2eproto.base,
   &scc_info_Index_cyber_2fproto_2frecord_2eproto.base,
+  &scc_info_MapInfo_cyber_2fproto_2frecord_2eproto.base,
   &scc_info_SingleIndex_cyber_2fproto_2frecord_2eproto.base,
   &scc_info_SingleMessage_cyber_2fproto_2frecord_2eproto.base,
+  &scc_info_VehicleInfo_cyber_2fproto_2frecord_2eproto.base,
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_cyber_2fproto_2frecord_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_cyber_2fproto_2frecord_2eproto = {
-  false, false, descriptor_table_protodef_cyber_2fproto_2frecord_2eproto, "cyber/proto/record.proto", 1522,
-  &descriptor_table_cyber_2fproto_2frecord_2eproto_once, descriptor_table_cyber_2fproto_2frecord_2eproto_sccs, descriptor_table_cyber_2fproto_2frecord_2eproto_deps, 10, 0,
+  false, false, descriptor_table_protodef_cyber_2fproto_2frecord_2eproto, "cyber/proto/record.proto", 1695,
+  &descriptor_table_cyber_2fproto_2frecord_2eproto_once, descriptor_table_cyber_2fproto_2frecord_2eproto_sccs, descriptor_table_cyber_2fproto_2frecord_2eproto_deps, 12, 0,
   schemas, file_default_instances, TableStruct_cyber_2fproto_2frecord_2eproto::offsets,
-  file_level_metadata_cyber_2fproto_2frecord_2eproto, 10, file_level_enum_descriptors_cyber_2fproto_2frecord_2eproto, file_level_service_descriptors_cyber_2fproto_2frecord_2eproto,
+  file_level_metadata_cyber_2fproto_2frecord_2eproto, 12, file_level_enum_descriptors_cyber_2fproto_2frecord_2eproto, file_level_service_descriptors_cyber_2fproto_2frecord_2eproto,
 };
 
 // Force running AddDescriptors() at dynamic initialization time.
@@ -2084,56 +2152,568 @@ void SingleMessage::InternalSwap(SingleMessage* other) {
 
 // ===================================================================
 
+class MapInfo::_Internal {
+ public:
+  using HasBits = decltype(std::declval<MapInfo>()._has_bits_);
+  static void set_has_name(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static void set_has_version(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+};
+
+MapInfo::MapInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:apollo.cyber.proto.MapInfo)
+}
+MapInfo::MapInfo(const MapInfo& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (from._internal_has_name()) {
+    name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
+      GetArena());
+  }
+  version_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (from._internal_has_version()) {
+    version_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_version(), 
+      GetArena());
+  }
+  // @@protoc_insertion_point(copy_constructor:apollo.cyber.proto.MapInfo)
+}
+
+void MapInfo::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_MapInfo_cyber_2fproto_2frecord_2eproto.base);
+  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  version_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+MapInfo::~MapInfo() {
+  // @@protoc_insertion_point(destructor:apollo.cyber.proto.MapInfo)
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+void MapInfo::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
+  name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  version_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void MapInfo::ArenaDtor(void* object) {
+  MapInfo* _this = reinterpret_cast< MapInfo* >(object);
+  (void)_this;
+}
+void MapInfo::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void MapInfo::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const MapInfo& MapInfo::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_MapInfo_cyber_2fproto_2frecord_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void MapInfo::Clear() {
+// @@protoc_insertion_point(message_clear_start:apollo.cyber.proto.MapInfo)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      name_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      version_.ClearNonDefaultToEmpty();
+    }
+  }
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* MapInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // optional string name = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          auto str = _internal_mutable_name();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          #ifndef NDEBUG
+          ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "apollo.cyber.proto.MapInfo.name");
+          #endif  // !NDEBUG
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // optional string version = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          auto str = _internal_mutable_version();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          #ifndef NDEBUG
+          ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "apollo.cyber.proto.MapInfo.version");
+          #endif  // !NDEBUG
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* MapInfo::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:apollo.cyber.proto.MapInfo)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional string name = 1;
+  if (cached_has_bits & 0x00000001u) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
+      "apollo.cyber.proto.MapInfo.name");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_name(), target);
+  }
+
+  // optional string version = 2;
+  if (cached_has_bits & 0x00000002u) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->_internal_version().data(), static_cast<int>(this->_internal_version().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
+      "apollo.cyber.proto.MapInfo.version");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_version(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:apollo.cyber.proto.MapInfo)
+  return target;
+}
+
+size_t MapInfo::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:apollo.cyber.proto.MapInfo)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    // optional string name = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_name());
+    }
+
+    // optional string version = 2;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_version());
+    }
+
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void MapInfo::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:apollo.cyber.proto.MapInfo)
+  GOOGLE_DCHECK_NE(&from, this);
+  const MapInfo* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<MapInfo>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:apollo.cyber.proto.MapInfo)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:apollo.cyber.proto.MapInfo)
+    MergeFrom(*source);
+  }
+}
+
+void MapInfo::MergeFrom(const MapInfo& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:apollo.cyber.proto.MapInfo)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      _internal_set_name(from._internal_name());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _internal_set_version(from._internal_version());
+    }
+  }
+}
+
+void MapInfo::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:apollo.cyber.proto.MapInfo)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void MapInfo::CopyFrom(const MapInfo& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:apollo.cyber.proto.MapInfo)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool MapInfo::IsInitialized() const {
+  return true;
+}
+
+void MapInfo::InternalSwap(MapInfo* other) {
+  using std::swap;
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  name_.Swap(&other->name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  version_.Swap(&other->version_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata MapInfo::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+class VehicleInfo::_Internal {
+ public:
+  using HasBits = decltype(std::declval<VehicleInfo>()._has_bits_);
+  static void set_has_name(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+VehicleInfo::VehicleInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:apollo.cyber.proto.VehicleInfo)
+}
+VehicleInfo::VehicleInfo(const VehicleInfo& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (from._internal_has_name()) {
+    name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
+      GetArena());
+  }
+  // @@protoc_insertion_point(copy_constructor:apollo.cyber.proto.VehicleInfo)
+}
+
+void VehicleInfo::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_VehicleInfo_cyber_2fproto_2frecord_2eproto.base);
+  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+VehicleInfo::~VehicleInfo() {
+  // @@protoc_insertion_point(destructor:apollo.cyber.proto.VehicleInfo)
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+void VehicleInfo::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
+  name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void VehicleInfo::ArenaDtor(void* object) {
+  VehicleInfo* _this = reinterpret_cast< VehicleInfo* >(object);
+  (void)_this;
+}
+void VehicleInfo::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void VehicleInfo::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const VehicleInfo& VehicleInfo::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_VehicleInfo_cyber_2fproto_2frecord_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void VehicleInfo::Clear() {
+// @@protoc_insertion_point(message_clear_start:apollo.cyber.proto.VehicleInfo)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    name_.ClearNonDefaultToEmpty();
+  }
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* VehicleInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // optional string name = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          auto str = _internal_mutable_name();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          #ifndef NDEBUG
+          ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "apollo.cyber.proto.VehicleInfo.name");
+          #endif  // !NDEBUG
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* VehicleInfo::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:apollo.cyber.proto.VehicleInfo)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional string name = 1;
+  if (cached_has_bits & 0x00000001u) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
+      "apollo.cyber.proto.VehicleInfo.name");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_name(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:apollo.cyber.proto.VehicleInfo)
+  return target;
+}
+
+size_t VehicleInfo::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:apollo.cyber.proto.VehicleInfo)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // optional string name = 1;
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_name());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void VehicleInfo::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:apollo.cyber.proto.VehicleInfo)
+  GOOGLE_DCHECK_NE(&from, this);
+  const VehicleInfo* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<VehicleInfo>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:apollo.cyber.proto.VehicleInfo)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:apollo.cyber.proto.VehicleInfo)
+    MergeFrom(*source);
+  }
+}
+
+void VehicleInfo::MergeFrom(const VehicleInfo& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:apollo.cyber.proto.VehicleInfo)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_name()) {
+    _internal_set_name(from._internal_name());
+  }
+}
+
+void VehicleInfo::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:apollo.cyber.proto.VehicleInfo)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void VehicleInfo::CopyFrom(const VehicleInfo& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:apollo.cyber.proto.VehicleInfo)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool VehicleInfo::IsInitialized() const {
+  return true;
+}
+
+void VehicleInfo::InternalSwap(VehicleInfo* other) {
+  using std::swap;
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  name_.Swap(&other->name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata VehicleInfo::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
 class Header::_Internal {
  public:
   using HasBits = decltype(std::declval<Header>()._has_bits_);
   static void set_has_major_version(HasBits* has_bits) {
-    (*has_bits)[0] |= 1u;
-  }
-  static void set_has_minor_version(HasBits* has_bits) {
-    (*has_bits)[0] |= 2u;
-  }
-  static void set_has_compress(HasBits* has_bits) {
-    (*has_bits)[0] |= 128u;
-  }
-  static void set_has_chunk_interval(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
-  static void set_has_segment_interval(HasBits* has_bits) {
+  static void set_has_minor_version(HasBits* has_bits) {
     (*has_bits)[0] |= 8u;
   }
-  static void set_has_index_position(HasBits* has_bits) {
-    (*has_bits)[0] |= 16u;
-  }
-  static void set_has_chunk_number(HasBits* has_bits) {
-    (*has_bits)[0] |= 32u;
-  }
-  static void set_has_channel_number(HasBits* has_bits) {
-    (*has_bits)[0] |= 64u;
-  }
-  static void set_has_begin_time(HasBits* has_bits) {
+  static void set_has_compress(HasBits* has_bits) {
     (*has_bits)[0] |= 512u;
   }
-  static void set_has_end_time(HasBits* has_bits) {
-    (*has_bits)[0] |= 1024u;
+  static void set_has_chunk_interval(HasBits* has_bits) {
+    (*has_bits)[0] |= 16u;
   }
-  static void set_has_message_number(HasBits* has_bits) {
-    (*has_bits)[0] |= 2048u;
+  static void set_has_segment_interval(HasBits* has_bits) {
+    (*has_bits)[0] |= 32u;
   }
-  static void set_has_size(HasBits* has_bits) {
-    (*has_bits)[0] |= 4096u;
+  static void set_has_index_position(HasBits* has_bits) {
+    (*has_bits)[0] |= 64u;
   }
-  static void set_has_is_complete(HasBits* has_bits) {
+  static void set_has_chunk_number(HasBits* has_bits) {
+    (*has_bits)[0] |= 128u;
+  }
+  static void set_has_channel_number(HasBits* has_bits) {
     (*has_bits)[0] |= 256u;
   }
-  static void set_has_chunk_raw_size(HasBits* has_bits) {
+  static void set_has_begin_time(HasBits* has_bits) {
+    (*has_bits)[0] |= 2048u;
+  }
+  static void set_has_end_time(HasBits* has_bits) {
+    (*has_bits)[0] |= 4096u;
+  }
+  static void set_has_message_number(HasBits* has_bits) {
     (*has_bits)[0] |= 8192u;
   }
-  static void set_has_segment_raw_size(HasBits* has_bits) {
+  static void set_has_size(HasBits* has_bits) {
     (*has_bits)[0] |= 16384u;
+  }
+  static void set_has_is_complete(HasBits* has_bits) {
+    (*has_bits)[0] |= 1024u;
+  }
+  static void set_has_chunk_raw_size(HasBits* has_bits) {
+    (*has_bits)[0] |= 32768u;
+  }
+  static void set_has_segment_raw_size(HasBits* has_bits) {
+    (*has_bits)[0] |= 65536u;
+  }
+  static const ::apollo::cyber::proto::MapInfo& map_info(const Header* msg);
+  static void set_has_map_info(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static const ::apollo::cyber::proto::VehicleInfo& vehicle_info(const Header* msg);
+  static void set_has_vehicle_info(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
   }
 };
 
+const ::apollo::cyber::proto::MapInfo&
+Header::_Internal::map_info(const Header* msg) {
+  return *msg->map_info_;
+}
+const ::apollo::cyber::proto::VehicleInfo&
+Header::_Internal::vehicle_info(const Header* msg) {
+  return *msg->vehicle_info_;
+}
 Header::Header(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
@@ -2144,6 +2724,16 @@ Header::Header(const Header& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  if (from._internal_has_map_info()) {
+    map_info_ = new ::apollo::cyber::proto::MapInfo(*from.map_info_);
+  } else {
+    map_info_ = nullptr;
+  }
+  if (from._internal_has_vehicle_info()) {
+    vehicle_info_ = new ::apollo::cyber::proto::VehicleInfo(*from.vehicle_info_);
+  } else {
+    vehicle_info_ = nullptr;
+  }
   ::memcpy(&major_version_, &from.major_version_,
     static_cast<size_t>(reinterpret_cast<char*>(&segment_raw_size_) -
     reinterpret_cast<char*>(&major_version_)) + sizeof(segment_raw_size_));
@@ -2151,10 +2741,11 @@ Header::Header(const Header& from)
 }
 
 void Header::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_Header_cyber_2fproto_2frecord_2eproto.base);
   ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-      reinterpret_cast<char*>(&major_version_) - reinterpret_cast<char*>(this)),
+      reinterpret_cast<char*>(&map_info_) - reinterpret_cast<char*>(this)),
       0, static_cast<size_t>(reinterpret_cast<char*>(&segment_raw_size_) -
-      reinterpret_cast<char*>(&major_version_)) + sizeof(segment_raw_size_));
+      reinterpret_cast<char*>(&map_info_)) + sizeof(segment_raw_size_));
 }
 
 Header::~Header() {
@@ -2165,6 +2756,8 @@ Header::~Header() {
 
 void Header::SharedDtor() {
   GOOGLE_DCHECK(GetArena() == nullptr);
+  if (this != internal_default_instance()) delete map_info_;
+  if (this != internal_default_instance()) delete vehicle_info_;
 }
 
 void Header::ArenaDtor(void* object) {
@@ -2189,16 +2782,27 @@ void Header::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x000000ffu) {
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      GOOGLE_DCHECK(map_info_ != nullptr);
+      map_info_->Clear();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      GOOGLE_DCHECK(vehicle_info_ != nullptr);
+      vehicle_info_->Clear();
+    }
+  }
+  if (cached_has_bits & 0x000000fcu) {
     ::memset(&major_version_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&compress_) -
-        reinterpret_cast<char*>(&major_version_)) + sizeof(compress_));
+        reinterpret_cast<char*>(&chunk_number_) -
+        reinterpret_cast<char*>(&major_version_)) + sizeof(chunk_number_));
   }
-  if (cached_has_bits & 0x00007f00u) {
-    ::memset(&is_complete_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&segment_raw_size_) -
-        reinterpret_cast<char*>(&is_complete_)) + sizeof(segment_raw_size_));
+  if (cached_has_bits & 0x0000ff00u) {
+    ::memset(&channel_number_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&chunk_raw_size_) -
+        reinterpret_cast<char*>(&channel_number_)) + sizeof(chunk_raw_size_));
   }
+  segment_raw_size_ = PROTOBUF_ULONGLONG(0);
   _has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -2335,6 +2939,20 @@ const char* Header::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::int
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
+      // optional .apollo.cyber.proto.MapInfo map_info = 16;
+      case 16:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 130)) {
+          ptr = ctx->ParseMessage(_internal_mutable_map_info(), ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // optional .apollo.cyber.proto.VehicleInfo vehicle_info = 17;
+      case 17:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 138)) {
+          ptr = ctx->ParseMessage(_internal_mutable_vehicle_info(), ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
       default: {
       handle_unusual:
         if ((tag & 7) == 4 || tag == 0) {
@@ -2366,94 +2984,110 @@ failure:
 
   cached_has_bits = _has_bits_[0];
   // optional uint32 major_version = 1;
-  if (cached_has_bits & 0x00000001u) {
+  if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(1, this->_internal_major_version(), target);
   }
 
   // optional uint32 minor_version = 2;
-  if (cached_has_bits & 0x00000002u) {
+  if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(2, this->_internal_minor_version(), target);
   }
 
   // optional .apollo.cyber.proto.CompressType compress = 3;
-  if (cached_has_bits & 0x00000080u) {
+  if (cached_has_bits & 0x00000200u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
       3, this->_internal_compress(), target);
   }
 
   // optional uint64 chunk_interval = 4;
-  if (cached_has_bits & 0x00000004u) {
+  if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(4, this->_internal_chunk_interval(), target);
   }
 
   // optional uint64 segment_interval = 5;
-  if (cached_has_bits & 0x00000008u) {
+  if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(5, this->_internal_segment_interval(), target);
   }
 
   // optional uint64 index_position = 6 [default = 0];
-  if (cached_has_bits & 0x00000010u) {
+  if (cached_has_bits & 0x00000040u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(6, this->_internal_index_position(), target);
   }
 
   // optional uint64 chunk_number = 7 [default = 0];
-  if (cached_has_bits & 0x00000020u) {
+  if (cached_has_bits & 0x00000080u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(7, this->_internal_chunk_number(), target);
   }
 
   // optional uint64 channel_number = 8 [default = 0];
-  if (cached_has_bits & 0x00000040u) {
+  if (cached_has_bits & 0x00000100u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(8, this->_internal_channel_number(), target);
   }
 
   // optional uint64 begin_time = 9 [default = 0];
-  if (cached_has_bits & 0x00000200u) {
+  if (cached_has_bits & 0x00000800u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(9, this->_internal_begin_time(), target);
   }
 
   // optional uint64 end_time = 10 [default = 0];
-  if (cached_has_bits & 0x00000400u) {
+  if (cached_has_bits & 0x00001000u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(10, this->_internal_end_time(), target);
   }
 
   // optional uint64 message_number = 11 [default = 0];
-  if (cached_has_bits & 0x00000800u) {
+  if (cached_has_bits & 0x00002000u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(11, this->_internal_message_number(), target);
   }
 
   // optional uint64 size = 12 [default = 0];
-  if (cached_has_bits & 0x00001000u) {
+  if (cached_has_bits & 0x00004000u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(12, this->_internal_size(), target);
   }
 
   // optional bool is_complete = 13 [default = false];
-  if (cached_has_bits & 0x00000100u) {
+  if (cached_has_bits & 0x00000400u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(13, this->_internal_is_complete(), target);
   }
 
   // optional uint64 chunk_raw_size = 14;
-  if (cached_has_bits & 0x00002000u) {
+  if (cached_has_bits & 0x00008000u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(14, this->_internal_chunk_raw_size(), target);
   }
 
   // optional uint64 segment_raw_size = 15;
-  if (cached_has_bits & 0x00004000u) {
+  if (cached_has_bits & 0x00010000u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(15, this->_internal_segment_raw_size(), target);
+  }
+
+  // optional .apollo.cyber.proto.MapInfo map_info = 16;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        16, _Internal::map_info(this), target, stream);
+  }
+
+  // optional .apollo.cyber.proto.VehicleInfo vehicle_info = 17;
+  if (cached_has_bits & 0x00000002u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        17, _Internal::vehicle_info(this), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2474,111 +3108,125 @@ size_t Header::ByteSizeLong() const {
 
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
-    // optional uint32 major_version = 1;
+    // optional .apollo.cyber.proto.MapInfo map_info = 16;
     if (cached_has_bits & 0x00000001u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *map_info_);
+    }
+
+    // optional .apollo.cyber.proto.VehicleInfo vehicle_info = 17;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *vehicle_info_);
+    }
+
+    // optional uint32 major_version = 1;
+    if (cached_has_bits & 0x00000004u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
           this->_internal_major_version());
     }
 
     // optional uint32 minor_version = 2;
-    if (cached_has_bits & 0x00000002u) {
+    if (cached_has_bits & 0x00000008u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
           this->_internal_minor_version());
     }
 
     // optional uint64 chunk_interval = 4;
-    if (cached_has_bits & 0x00000004u) {
+    if (cached_has_bits & 0x00000010u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64Size(
           this->_internal_chunk_interval());
     }
 
     // optional uint64 segment_interval = 5;
-    if (cached_has_bits & 0x00000008u) {
+    if (cached_has_bits & 0x00000020u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64Size(
           this->_internal_segment_interval());
     }
 
     // optional uint64 index_position = 6 [default = 0];
-    if (cached_has_bits & 0x00000010u) {
+    if (cached_has_bits & 0x00000040u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64Size(
           this->_internal_index_position());
     }
 
     // optional uint64 chunk_number = 7 [default = 0];
-    if (cached_has_bits & 0x00000020u) {
+    if (cached_has_bits & 0x00000080u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64Size(
           this->_internal_chunk_number());
     }
 
+  }
+  if (cached_has_bits & 0x0000ff00u) {
     // optional uint64 channel_number = 8 [default = 0];
-    if (cached_has_bits & 0x00000040u) {
+    if (cached_has_bits & 0x00000100u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64Size(
           this->_internal_channel_number());
     }
 
     // optional .apollo.cyber.proto.CompressType compress = 3;
-    if (cached_has_bits & 0x00000080u) {
+    if (cached_has_bits & 0x00000200u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_compress());
     }
 
-  }
-  if (cached_has_bits & 0x00007f00u) {
     // optional bool is_complete = 13 [default = false];
-    if (cached_has_bits & 0x00000100u) {
+    if (cached_has_bits & 0x00000400u) {
       total_size += 1 + 1;
     }
 
     // optional uint64 begin_time = 9 [default = 0];
-    if (cached_has_bits & 0x00000200u) {
+    if (cached_has_bits & 0x00000800u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64Size(
           this->_internal_begin_time());
     }
 
     // optional uint64 end_time = 10 [default = 0];
-    if (cached_has_bits & 0x00000400u) {
+    if (cached_has_bits & 0x00001000u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64Size(
           this->_internal_end_time());
     }
 
     // optional uint64 message_number = 11 [default = 0];
-    if (cached_has_bits & 0x00000800u) {
+    if (cached_has_bits & 0x00002000u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64Size(
           this->_internal_message_number());
     }
 
     // optional uint64 size = 12 [default = 0];
-    if (cached_has_bits & 0x00001000u) {
+    if (cached_has_bits & 0x00004000u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64Size(
           this->_internal_size());
     }
 
     // optional uint64 chunk_raw_size = 14;
-    if (cached_has_bits & 0x00002000u) {
+    if (cached_has_bits & 0x00008000u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64Size(
           this->_internal_chunk_raw_size());
     }
 
-    // optional uint64 segment_raw_size = 15;
-    if (cached_has_bits & 0x00004000u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64Size(
-          this->_internal_segment_raw_size());
-    }
-
   }
+  // optional uint64 segment_raw_size = 15;
+  if (cached_has_bits & 0x00010000u) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64Size(
+        this->_internal_segment_raw_size());
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
         _internal_metadata_, total_size, &_cached_size_);
@@ -2613,54 +3261,60 @@ void Header::MergeFrom(const Header& from) {
   cached_has_bits = from._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
-      major_version_ = from.major_version_;
+      _internal_mutable_map_info()->::apollo::cyber::proto::MapInfo::MergeFrom(from._internal_map_info());
     }
     if (cached_has_bits & 0x00000002u) {
-      minor_version_ = from.minor_version_;
+      _internal_mutable_vehicle_info()->::apollo::cyber::proto::VehicleInfo::MergeFrom(from._internal_vehicle_info());
     }
     if (cached_has_bits & 0x00000004u) {
-      chunk_interval_ = from.chunk_interval_;
+      major_version_ = from.major_version_;
     }
     if (cached_has_bits & 0x00000008u) {
-      segment_interval_ = from.segment_interval_;
+      minor_version_ = from.minor_version_;
     }
     if (cached_has_bits & 0x00000010u) {
-      index_position_ = from.index_position_;
+      chunk_interval_ = from.chunk_interval_;
     }
     if (cached_has_bits & 0x00000020u) {
-      chunk_number_ = from.chunk_number_;
+      segment_interval_ = from.segment_interval_;
     }
     if (cached_has_bits & 0x00000040u) {
-      channel_number_ = from.channel_number_;
+      index_position_ = from.index_position_;
     }
     if (cached_has_bits & 0x00000080u) {
-      compress_ = from.compress_;
+      chunk_number_ = from.chunk_number_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
-  if (cached_has_bits & 0x00007f00u) {
+  if (cached_has_bits & 0x0000ff00u) {
     if (cached_has_bits & 0x00000100u) {
-      is_complete_ = from.is_complete_;
+      channel_number_ = from.channel_number_;
     }
     if (cached_has_bits & 0x00000200u) {
-      begin_time_ = from.begin_time_;
+      compress_ = from.compress_;
     }
     if (cached_has_bits & 0x00000400u) {
-      end_time_ = from.end_time_;
+      is_complete_ = from.is_complete_;
     }
     if (cached_has_bits & 0x00000800u) {
-      message_number_ = from.message_number_;
+      begin_time_ = from.begin_time_;
     }
     if (cached_has_bits & 0x00001000u) {
-      size_ = from.size_;
+      end_time_ = from.end_time_;
     }
     if (cached_has_bits & 0x00002000u) {
-      chunk_raw_size_ = from.chunk_raw_size_;
+      message_number_ = from.message_number_;
     }
     if (cached_has_bits & 0x00004000u) {
-      segment_raw_size_ = from.segment_raw_size_;
+      size_ = from.size_;
+    }
+    if (cached_has_bits & 0x00008000u) {
+      chunk_raw_size_ = from.chunk_raw_size_;
     }
     _has_bits_[0] |= cached_has_bits;
+  }
+  if (cached_has_bits & 0x00010000u) {
+    _internal_set_segment_raw_size(from._internal_segment_raw_size());
   }
 }
 
@@ -2689,9 +3343,9 @@ void Header::InternalSwap(Header* other) {
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(Header, segment_raw_size_)
       + sizeof(Header::segment_raw_size_)
-      - PROTOBUF_FIELD_OFFSET(Header, major_version_)>(
-          reinterpret_cast<char*>(&major_version_),
-          reinterpret_cast<char*>(&other->major_version_));
+      - PROTOBUF_FIELD_OFFSET(Header, map_info_)>(
+          reinterpret_cast<char*>(&map_info_),
+          reinterpret_cast<char*>(&other->map_info_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata Header::GetMetadata() const {
@@ -3738,6 +4392,12 @@ template<> PROTOBUF_NOINLINE ::apollo::cyber::proto::ChannelCache* Arena::Create
 }
 template<> PROTOBUF_NOINLINE ::apollo::cyber::proto::SingleMessage* Arena::CreateMaybeMessage< ::apollo::cyber::proto::SingleMessage >(Arena* arena) {
   return Arena::CreateMessageInternal< ::apollo::cyber::proto::SingleMessage >(arena);
+}
+template<> PROTOBUF_NOINLINE ::apollo::cyber::proto::MapInfo* Arena::CreateMaybeMessage< ::apollo::cyber::proto::MapInfo >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::apollo::cyber::proto::MapInfo >(arena);
+}
+template<> PROTOBUF_NOINLINE ::apollo::cyber::proto::VehicleInfo* Arena::CreateMaybeMessage< ::apollo::cyber::proto::VehicleInfo >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::apollo::cyber::proto::VehicleInfo >(arena);
 }
 template<> PROTOBUF_NOINLINE ::apollo::cyber::proto::Header* Arena::CreateMaybeMessage< ::apollo::cyber::proto::Header >(Arena* arena) {
   return Arena::CreateMessageInternal< ::apollo::cyber::proto::Header >(arena);

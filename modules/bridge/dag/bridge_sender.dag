@@ -1,0 +1,38 @@
+module_config {
+    module_library: "component/libudp_bridge_sender_component.so"
+    components {
+
+        class_name: "UDPBridgeSenderComponent<planning::ADCTrajectory>"
+        config {
+            name: "bridge_sender_ADCTrajectory"
+            config_file_path: "modules/bridge/conf/udp_bridge_sender_adctrajectory.pb.txt"
+            readers {
+              channel: "/apollo/planning"
+            }
+      }
+   }
+
+    components {
+
+        class_name: "UDPBridgeSenderComponent<localization::LocalizationEstimate>"
+        config {
+            name: "bridge_sender_LocalizationEstimate"
+            config_file_path: "modules/bridge/conf/udp_bridge_sender_localization.pb.txt"
+            readers {
+              channel: "/apollo/localization/pose"
+            }
+      }
+   }
+
+    components {
+
+        class_name: "UDPBridgeSenderComponent<canbus::Chassis>"
+        config {
+            name: "bridge_sender_Chassis"
+            config_file_path: "modules/bridge/conf/udp_bridge_sender_chassis.pb.txt"
+            readers {
+              channel: "/apollo/canbus/Chassis"
+            }
+      }
+   }
+}

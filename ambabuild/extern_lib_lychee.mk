@@ -72,7 +72,9 @@ EXTERN_LIB_OPENSSL_LIB = -lcrypto -lssl
 ## abseil-20230125.3
 EXTERN_LIB_ABSL_DIR = $(APOLLO_OSS_DIR)/abseil-cpp
 EXTERN_LIB_ABSL_INC = -I$(EXTERN_LIB_ABSL_DIR)/include
-EXTERN_LIB_ABSL_LIB = -L$(EXTERN_LIB_ABSL_DIR)/lib64 -labsl_base -labsl_int128 -labsl_throw_delegate -labsl_spinlock_wait -labsl_raw_logging_internal -labsl_log_severity -labsl_strings_internal -labsl_strings
+EXTERN_LIB_ABSL_LIB = -L$(EXTERN_LIB_ABSL_DIR)/lib64 -labsl_base -labsl_int128 -labsl_str_format_internal -labsl_throw_delegate \
+-labsl_spinlock_wait -labsl_raw_logging_internal -labsl_log_severity -labsl_strings_internal -labsl_strings
+
 ## eigen3
 EXTERN_LIB_EIGEN_DIR =
 EXTERN_LIB_EIGEN_INC = -I /usr/include/eigen3
@@ -113,9 +115,12 @@ EXTERN_LIB_TINYXML_INC =
 EXTERN_LIB_TINYXML_LIB = -ltinyxml2
 
 ## proj-7.1.0
-EXTERN_LIB_PROJ_DIR = $(APOLLO_OSS_DIR)/proj
-EXTERN_LIB_PROJ_INC = -I$(EXTERN_LIB_PROJ_DIR)/include
-EXTERN_LIB_PROJ_LIB = -L$(EXTERN_LIB_PROJ_DIR)/lib64 -lproj
+#EXTERN_LIB_PROJ_DIR = $(APOLLO_OSS_DIR)/proj
+#EXTERN_LIB_PROJ_INC = -I$(EXTERN_LIB_PROJ_DIR)/include
+#EXTERN_LIB_PROJ_LIB = -L$(EXTERN_LIB_PROJ_DIR)/lib64 -lproj
+EXTERN_LIB_PROJ_DIR =
+EXTERN_LIB_PROJ_INC =
+EXTERN_LIB_PROJ_LIB = -lproj
 
 ## nlohmann-json-3.8.0
 EXTERN_LIB_JSON_DIR = $(BASE_LIBRIRY_DIR)/nlohmann-json-3.8.0
@@ -133,19 +138,19 @@ EXTERN_LIB_OPENCV_INC = -I /usr/include/opencv4
 EXTERN_LIB_OPENCV_LIB = -lopencv_core -lopencv_imgproc -lopencv_imgcodecs
 
 ## adolc-2.6.3
-EXTERN_LIB_ADOLC_DIR = $(BASE_LIBRIRY_DIR)/adolc-2.6.3
+EXTERN_LIB_ADOLC_DIR = $(APOLLO_OSS_DIR)/adol-c
 EXTERN_LIB_ADOLC_INC = -I$(EXTERN_LIB_ADOLC_DIR)/include
 EXTERN_LIB_ADOLC_LIB = -L$(EXTERN_LIB_ADOLC_DIR)/lib64 -ladolc
 
 ## ad_rss_lib-1.1.0
-EXTERN_LIB_ADRSS_DIR = $(BASE_LIBRIRY_DIR)/ad_rss_lib-1.1.0
+EXTERN_LIB_ADRSS_DIR = $(APOLLO_OSS_DIR)/ad_rss_lib
 EXTERN_LIB_ADRSS_INC = -I$(EXTERN_LIB_ADRSS_DIR)/include
 EXTERN_LIB_ADRSS_LIB = -L$(EXTERN_LIB_ADRSS_DIR)/lib -lad-rss
 
-## Ipopt-3.13.0
-EXTERN_LIB_IPOPT_DIR = $(BASE_LIBRIRY_DIR)/Ipopt-3.13.0
+## Ipopt-3.14.12
+EXTERN_LIB_IPOPT_DIR = $(APOLLO_OSS_DIR)/Ipopt
 EXTERN_LIB_IPOPT_INC = -I$(EXTERN_LIB_IPOPT_DIR)/include
-EXTERN_LIB_IPOPT_LIB = -L$(EXTERN_LIB_IPOPT_DIR)/lib -lipopt_full
+EXTERN_LIB_IPOPT_LIB = -L$(EXTERN_LIB_IPOPT_DIR)/lib -lipopt
 
 ## ncurses 5.9
 EXTERN_LIB_NCURSES_DIR =

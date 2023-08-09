@@ -1,5 +1,5 @@
 ###############################################################################
-## apollo/modules/common_msgs/map_msgs/Makefile
+## apollo/modules/common_msgs/Makefile
 ##
 ## History:
 ##    2023/08/09 - [Yang Yu] Created file
@@ -22,7 +22,7 @@
 
 default: all
 
-include ../../../ambabuild/prerequisites.mk
+include ../../ambabuild/prerequisites.mk
 
 include $(TOP_DIR)/ambabuild/config.mk
 include $(TOP_DIR)/ambabuild/extern_lib.mk
@@ -31,14 +31,58 @@ include $(TOP_DIR)/ambabuild/extern_lib.mk
 ####################################################################
 ## for module library 
 ####################################################################
+SUBDIRS := audio_msgs \
+basic_msgs \
+chassis_msgs \
+config_msgs \
+control_msgs \
+dreamview_msgs \
+drivers_msgs \
+guardian_msgs \
+localization_msgs \
+map_msgs \
+monitor_msgs \
+perception_msgs \
+planning_msgs \
+prediction_msgs \
+routing_msgs \
+sensor_msgs \
+simulation_msgs \
+storytelling_msgs \
+task_manager_msgs \
+transform_msgs \
+v2x_msgs
 
-COMPONENT_SRC := $(shell find ./ -name '*.cc')
-COMPONENT_OBJ := $(COMPONENT_SRC:.cc=.o)
+
+src := $(shell find ./ -name '*.cc')
+obj := $(src:.cc=.o)
+
+COMPONENT_SRC := $(src)
+COMPONENT_OBJ := $(obj)
 
 ####################################################################
 ## FLAGS 
 ####################################################################
 COMPONENT_INC := $(EXTERN_LIB_GLOG_INC) $(EXTERN_LIB_GFLAGS_INC) $(EXTERN_LIB_PROTOBUF_INC)
 COMPONENT_INC += $(EXTERN_LIB_FASTCDR_INC) $(EXTERN_LIB_FASTRTPS_INC)
+
+COMPONENT_LDFLAG := $(EXTERN_LIB_FASTCDR_LIB) $(EXTERN_LIB_FASTRTPS_LIB)
+COMPONENT_LDFLAG += $(EXTERN_LIB_OPENSSL_LIB)
+COMPONENT_LDFLAG += $(EXTERN_LIB_PROTOBUF_LIB) $(EXTERN_LIB_GFLAGS_LIB) $(EXTERN_LIB_GLOG_LIB)
+COMPONENT_LDFLAG += $(EXTERN_LIB_GTEST_LIB) $(EXTERN_LIB_UTILS_LINUX_LIBS_LIB)
+COMPONENT_LDFLAG += -latomic
+
+SHARED_LIB_NAMES = common_msgs
+
+## for component.so
+common_msgs_src := $(COMPONENT_SRC)
+common_msgs_obj := $(COMPONENT_OBJ)
+
+####################################################################
+## install
+####################################################################
+install:
+	$(INSTALL) -m 0644 -D $(INTERNAL_LIB_DIR)/* -t $(INSTALL_LIB_DIR)
+
 
 include $(TOP_DIR)/ambabuild/rules.mk

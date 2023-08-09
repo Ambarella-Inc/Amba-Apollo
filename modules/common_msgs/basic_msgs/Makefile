@@ -1,8 +1,8 @@
 ###############################################################################
-## apollo/modules/common/proto/Makefile
+## apollo/modules/common_msgs/basic_msgs/Makefile
 ##
 ## History:
-##    2022/11/09 - [Yang Yu] Created file
+##    2023/08/09 - [Yang Yu] Created file
 ##
 ## Copyright (C) 2022 Ambarella International LP
 ##
@@ -27,10 +27,17 @@ include ../../../ambabuild/prerequisites.mk
 include $(TOP_DIR)/ambabuild/config.mk
 include $(TOP_DIR)/ambabuild/extern_lib.mk
 
-COMPONENT_SRC := error_code.pb.cc drive_state.pb.cc pnc_point.pb.cc geometry.pb.cc \
-                 direction.pb.cc header.pb.cc vehicle_signal.pb.cc drive_event.pb.cc
+
+####################################################################
+## for module library 
+####################################################################
+
+COMPONENT_SRC := $(shell find ./ -name '*.cc')
 COMPONENT_OBJ := $(COMPONENT_SRC:.cc=.o)
 
+####################################################################
+## FLAGS 
+####################################################################
 COMPONENT_INC := $(EXTERN_LIB_GLOG_INC) $(EXTERN_LIB_GFLAGS_INC) $(EXTERN_LIB_PROTOBUF_INC)
 COMPONENT_INC += $(EXTERN_LIB_FASTCDR_INC) $(EXTERN_LIB_FASTRTPS_INC)
 

@@ -8,7 +8,7 @@ source ${APOLLO_ROOT_DIR}/scripts/common.bashrc
 
 APOLLO_IN_LYCHEE=true
 # If not run with lychee
-if [ -d ./lib/cmake ]; then
+if [ -d ${APOLLO_ROOT_DIR}/lib/cmake ]; then
   APOLLO_IN_LYCHEE=false
 fi
 

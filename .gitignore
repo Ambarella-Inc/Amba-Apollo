@@ -110,3 +110,6 @@ modules/prediction/.gitignore
 modules/prediction/data
 modules/prediction/testdata
 
+*.pb.h
+*.pb.cc
+

@@ -1,5 +1,5 @@
 ###############################################################################
-## apollo/modules/common_msgs/map_msgs/Makefile
+## apollo/modules/common_msgs/audio_msgs/Makefile
 ##
 ## History:
 ##    2023/08/09 - [Yang Yu] Created file

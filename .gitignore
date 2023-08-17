@@ -98,9 +98,12 @@ out
 
 # exclude ambarella extended modules
 modules/amba_cam
-modules/app_openod
-modules/app_openseg
-#modules/.gitignore
+modules/amba_openod
+modules/amba_openseg
+modules/amba_bevdet
+modules/amba_bevdet_imgbb
+modules/amba_demo_prediction
+modules/amba_yolop
 **/.gitignore
 
 # perception and prediction data

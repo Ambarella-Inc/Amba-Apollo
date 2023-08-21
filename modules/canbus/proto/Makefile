@@ -28,7 +28,7 @@ include $(TOP_DIR)/ambabuild/config.mk
 include $(TOP_DIR)/ambabuild/extern_lib.mk
 
 
-COMPONENT_SRC := chassis.pb.cc
+COMPONENT_SRC := $(shell find ./ -name '*.cc')
 COMPONENT_OBJ := $(COMPONENT_SRC:.cc=.o)
 
 COMPONENT_INC := $(EXTERN_LIB_GLOG_INC) $(EXTERN_LIB_GFLAGS_INC) $(EXTERN_LIB_PROTOBUF_INC)

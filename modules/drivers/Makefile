@@ -41,7 +41,7 @@ canbus_src := $(foreach dir,$(canbus_dir),$(wildcard $(dir)/*.cc))
 #canbus_obj := $(canbus_src:%.cc=%.o)
 #$(info $(canbus_src))
 canbus_obj := canbus/sensor_gflags.o canbus/can_client/can_client_factory.o canbus/common/byte.o canbus/can_client/fake/fake_can_client.o \
-              canbus/can_client/socket/socket_can_client_raw.o #canbus/can_client/hermes_can/hermes_can_client.o 
+              canbus/can_client/socket/socket_can_client_raw.o canbus/proto/sensor_canbus_conf.pb.o #canbus/can_client/hermes_can/hermes_can_client.o 
 
 ####################################################################
 ## FLAGS 
@@ -59,7 +59,7 @@ COMPONENT_LDFLAG += $(EXTERN_LIB_PROTOBUF_LIB) $(EXTERN_LIB_GFLAGS_LIB) $(EXTERN
 COMPONENT_LDFLAG += $(EXTERN_LIB_GTEST_LIB) $(EXTERN_LIB_UTILS_LINUX_LIBS_LIB)
 COMPONENT_LDFLAG += $(EXTERN_LIB_ABSL_LIB)
 COMPONENT_LDFLAG += -latomic
-COMPONENT_LDFLAG += -L$(INTERNAL_LIB_DIR) -lproto -lcyber -lcommon
+COMPONENT_LDFLAG += -L$(INTERNAL_LIB_DIR) -lcommon_msgs -lcyber -lcommon
 
 SHARED_LIB_NAMES = driver
 
@@ -72,6 +72,11 @@ driver_obj := $(canbus_obj)
 ####################################################################
 install:
 	$(INSTALL) -m 0644 -D $(INTERNAL_LIB_DIR)/* -t $(INSTALL_LIB_DIR)
+ifeq ($(ENABLE_LYCHEE), n)
+	@cp -dpRf $(EXTERN_LIB_ABSL_DIR)/lib/libabsl.a $(INSTALL_LIB_DIR)
+	@cp -dpRf $(EXTERN_LIB_BOOST_DIR)/lib/* $(INSTALL_LIB_DIR)
+	@cp -dpRf $(EXTERN_LIB_OSQP_DIR)/lib/*.so $(INSTALL_LIB_DIR)
+endif
 	$(INSTALL) -m 0755 -D $(INTERNAL_BIN_DIR)/drivers/* -t $(INSTALL_BIN_DIR)/drivers
 
 install_dep_libs:
@@ -91,7 +96,7 @@ TEST_LDFLAG += $(EXTERN_LIB_PROTOBUF_LIB) $(EXTERN_LIB_GFLAGS_LIB) $(EXTERN_LIB_
 TEST_LDFLAG += $(EXTERN_LIB_GTEST_LIB) $(EXTERN_LIB_UTILS_LINUX_LIBS_LIB)
 TEST_LDFLAG += $(EXTERN_LIB_ABSL_LIB)
 TEST_LDFLAG += $(EXTERN_LIB_ZLIB_LIB) $(EXTERN_LIB_SQL_LIB) $(EXTERN_LIB_OSQP_LIB)
-TEST_LDFLAG += -L$(INTERNAL_LIB_DIR) -lproto -lcyber -lcommon -ldriver
+TEST_LDFLAG += -L$(INTERNAL_LIB_DIR) -lcommon_msgs -lcyber -lcommon -ldriver
 TEST_LDFLAG += -latomic
 
 define MAKE_SELF_TEST

@@ -32,7 +32,7 @@ include $(TOP_DIR)/ambabuild/extern_lib.mk
 ## for module library 
 ####################################################################
 
-SUBDIRS := common vehicle tools
+SUBDIRS := common vehicle tools proto
 
 ## source files and object files
 src := canbus_component.cc
@@ -46,8 +46,8 @@ vehicle_src := vehicle/abstract_vehicle_factory.cc
 vehicle_obj := $(vehicle_src:.cc=.o)
 #$(info $(vehicle_obj))
 
-proto_src := #../common_msgs/chassis_msgs/chassis.pb.cc ../common_msgs/chassis_msgs/chassis_detail.pb.cc
-proto_obj := #$(proto_src:.cc=.o)
+proto_src := $(shell find proto -name '*.cc')
+proto_obj := $(proto_src:.cc=.o)
 
 COMPONENT_SRC := $(src) $(common_src) $(proto_src) $(vehicle_src) canbus_test.cc
 COMPONENT_OBJ := $(obj) $(common_obj) $(proto_obj) $(vehicle_obj) canbus_test.o
@@ -60,7 +60,7 @@ COMPONENT_INC += $(EXTERN_LIB_FASTCDR_INC) $(EXTERN_LIB_FASTRTPS_INC)
 COMPONENT_INC += $(EXTERN_LIB_ABSL_INC) $(EXTERN_LIB_BOOST_INC) $(EXTERN_LIB_OSQP_INC)
 ## for test
 COMPONENT_INC += $(EXTERN_LIB_GTEST_INC)
-COMPONENT_INC += -O0 -g
+#COMPONENT_INC += -O0 -g
 
 COMPONENT_LDFLAG := $(EXTERN_LIB_FASTCDR_LIB) $(EXTERN_LIB_FASTRTPS_LIB)
 COMPONENT_LDFLAG += $(EXTERN_LIB_OPENSSL_LIB)
@@ -68,7 +68,7 @@ COMPONENT_LDFLAG += $(EXTERN_LIB_PROTOBUF_LIB) $(EXTERN_LIB_GFLAGS_LIB) $(EXTERN
 COMPONENT_LDFLAG += $(EXTERN_LIB_GTEST_LIB) $(EXTERN_LIB_UTILS_LINUX_LIBS_LIB)
 COMPONENT_LDFLAG += $(EXTERN_LIB_ABSL_LIB) $(EXTERN_LIB_BOOST_LIB) $(EXTERN_LIB_OSQP_LIB)
 COMPONENT_LDFLAG += -latomic
-COMPONENT_LDFLAG += -L$(INTERNAL_LIB_DIR) -lproto -lcyber -lcommon -ldriver
+COMPONENT_LDFLAG += -L$(INTERNAL_LIB_DIR) -lcommon_msgs -lcyber -lcommon -ldriver
 
 COM_SHARED_LIB_NAMES = canbus_component
 
@@ -80,6 +80,11 @@ canbus_component_obj := $(obj) $(common_obj) $(proto_obj) $(vehicle_obj)
 ## install
 ####################################################################
 install:
+ifeq ($(ENABLE_LYCHEE), n)
+	@cp -dpRf $(EXTERN_LIB_ABSL_DIR)/lib/libabsl.a $(INSTALL_LIB_DIR)
+	@cp -dpRf $(EXTERN_LIB_BOOST_DIR)/lib/* $(INSTALL_LIB_DIR)
+	@cp -dpRf $(EXTERN_LIB_OSQP_DIR)/lib/*.so $(INSTALL_LIB_DIR)
+endif
 	$(INSTALL) -m 0644 -D $(INTERNAL_COM_LIB_DIR)/* -t $(INSTALL_COM_LIB_DIR)
 	$(INSTALL) -m 0755 -D $(INTERNAL_BIN_DIR)/canbus/* -t $(INSTALL_BIN_DIR)/canbus
 	$(INSTALL) -m 0644 -D $(TOP_DIR)/modules/canbus/conf/* -t $(INSTALL_DIR)/modules/canbus/conf
@@ -110,7 +115,7 @@ TEST_LDFLAG += $(EXTERN_LIB_PROTOBUF_LIB) $(EXTERN_LIB_GFLAGS_LIB) $(EXTERN_LIB_
 TEST_LDFLAG += $(EXTERN_LIB_GTEST_LIB) $(EXTERN_LIB_UTILS_LINUX_LIBS_LIB)
 TEST_LDFLAG += $(EXTERN_LIB_ABSL_LIB) $(EXTERN_LIB_ZLIB_LIB) $(EXTERN_LIB_SQL_LIB)
 TEST_LDFLAG += $(EXTERN_LIB_BOOST_LIB) $(EXTERN_LIB_OSQP_LIB)
-TEST_LDFLAG += -L$(INTERNAL_LIB_DIR) -lproto -lcyber -lcommon -ldriver
+TEST_LDFLAG += -L$(INTERNAL_LIB_DIR) -lcommon_msgs -lcyber -lcommon -ldriver
 TEST_LDFLAG += -latomic
 
 define MAKE_SELF_TEST

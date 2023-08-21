@@ -65,31 +65,36 @@ COMPONENT_LDFLAG += $(EXTERN_LIB_PROTOBUF_LIB) $(EXTERN_LIB_GFLAGS_LIB) $(EXTERN
 COMPONENT_LDFLAG += $(EXTERN_LIB_GTEST_LIB) $(EXTERN_LIB_UTILS_LINUX_LIBS_LIB)
 COMPONENT_LDFLAG += $(EXTERN_LIB_ABSL_LIB) $(EXTERN_LIB_SQL_LIB)
 COMPONENT_LDFLAG += -latomic
-COMPONENT_LDFLAG += -L$(INTERNAL_LIB_DIR) -lproto -lcyber -lcommon
+COMPONENT_LDFLAG += -L$(INTERNAL_LIB_DIR) -lcommon_msgs -lcyber -lcommon
 
 SHARED_LIB_NAMES = udp_bridge
 
-udp_bridge_src = $(common_src)
-udp_bridge_obj = $(common_obj)
+udp_bridge_src = $(common_src) $(proto_src)
+udp_bridge_obj = $(common_obj) $(proto_obj)
 
 COM_SHARED_LIB_NAMES = udp_bridge_sender_component udp_bridge_receiver_component udp_bridge_multi_receiver_component
 
 ## for component.so
 
-udp_bridge_sender_component_src := udp_bridge_sender_component.cc $(common_src)
-udp_bridge_sender_component_obj := udp_bridge_sender_component.o $(common_obj)
+udp_bridge_sender_component_src := udp_bridge_sender_component.cc $(udp_bridge_src)
+udp_bridge_sender_component_obj := udp_bridge_sender_component.o $(udp_bridge_obj)
 
-udp_bridge_receiver_component_src := udp_bridge_receiver_component.cc $(common_src)
-udp_bridge_receiver_component_obj := udp_bridge_receiver_component.o $(common_obj)
+udp_bridge_receiver_component_src := udp_bridge_receiver_component.cc $(udp_bridge_src)
+udp_bridge_receiver_component_obj := udp_bridge_receiver_component.o $(udp_bridge_obj)
 
-udp_bridge_multi_receiver_component_src := udp_bridge_multi_receiver_component.cc $(common_src)
-udp_bridge_multi_receiver_component_obj := udp_bridge_multi_receiver_component.o $(common_obj)
+udp_bridge_multi_receiver_component_src := udp_bridge_multi_receiver_component.cc $(udp_bridge_src)
+udp_bridge_multi_receiver_component_obj := udp_bridge_multi_receiver_component.o $(udp_bridge_obj)
 
 ####################################################################
 ## install
 ####################################################################
 install:
 	$(INSTALL) -m 0644 -D $(INTERNAL_LIB_DIR)/* -t $(INSTALL_LIB_DIR)
+ifeq ($(ENABLE_LYCHEE), n)
+	@cp -dpRf $(EXTERN_LIB_ABSL_DIR)/lib/libabsl.a $(INSTALL_LIB_DIR)
+	@cp -dpRf $(EXTERN_LIB_ZLIB_DIR)/usr/lib/* $(INSTALL_LIB_DIR)
+	@cp -dpRf $(EXTERN_LIB_SQL_DIR)/usr/lib/* $(INSTALL_LIB_DIR)
+endif
 	$(INSTALL) -m 0644 -D $(INTERNAL_COM_LIB_DIR)/* -t $(INSTALL_COM_LIB_DIR)
 	$(INSTALL) -m 0755 -D $(INTERNAL_BIN_DIR)/bridge/* -t $(INSTALL_BIN_DIR)/bridge
 	$(INSTALL) -m 0644 -D $(TOP_DIR)/modules/bridge/conf/* -t $(INSTALL_DIR)/modules/bridge/conf
@@ -119,7 +124,7 @@ TEST_LDFLAG := $(EXTERN_LIB_FASTCDR_LIB) $(EXTERN_LIB_FASTRTPS_LIB) $(EXTERN_LIB
 TEST_LDFLAG += $(EXTERN_LIB_PROTOBUF_LIB) $(EXTERN_LIB_GFLAGS_LIB) $(EXTERN_LIB_GLOG_LIB)
 TEST_LDFLAG += $(EXTERN_LIB_GTEST_LIB) $(EXTERN_LIB_UTILS_LINUX_LIBS_LIB)
 TEST_LDFLAG += $(EXTERN_LIB_ABSL_LIB) $(EXTERN_LIB_ZLIB_LIB) $(EXTERN_LIB_SQL_LIB) $(EXTERN_LIB_OSQP_LIB)
-TEST_LDFLAG += -L$(INTERNAL_LIB_DIR) -lproto -lcyber -lcommon
+TEST_LDFLAG += -L$(INTERNAL_LIB_DIR) -lcommon_msgs -lcyber -lcommon
 TEST_LDFLAG += -latomic
 
 define MAKE_SELF_TEST

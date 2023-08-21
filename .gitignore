@@ -100,7 +100,8 @@ out
 modules/amba_cam
 modules/app_openod
 modules/app_openseg
-modules/.gitignore
+#modules/.gitignore
+**/.gitignore
 
 # perception and prediction data
 modules/perception/.gitignore

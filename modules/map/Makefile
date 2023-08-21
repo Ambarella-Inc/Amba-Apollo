@@ -65,7 +65,7 @@ COMPONENT_LDFLAG += $(EXTERN_LIB_PROTOBUF_LIB) $(EXTERN_LIB_GFLAGS_LIB) $(EXTERN
 COMPONENT_LDFLAG += $(EXTERN_LIB_GTEST_LIB) $(EXTERN_LIB_UTILS_LINUX_LIBS_LIB)
 COMPONENT_LDFLAG += $(EXTERN_LIB_ABSL_LIB) $(EXTERN_LIB_TINYXML_LIB) $(EXTERN_LIB_PROJ_LIB)
 COMPONENT_LDFLAG += -latomic
-COMPONENT_LDFLAG += -L$(INTERNAL_LIB_DIR) -lproto -lcyber -lcommon
+COMPONENT_LDFLAG += -L$(INTERNAL_LIB_DIR) -lcommon_msgs -lcyber -lcommon
 
 SHARED_LIB_NAMES = hdmap_lib pnc_map_lib
 
@@ -87,6 +87,13 @@ relative_map_component_obj := $(relative_map_obj)
 install:
 	$(INSTALL) -m 0644 -D $(INTERNAL_COM_LIB_DIR)/* -t $(INSTALL_COM_LIB_DIR)
 	$(INSTALL) -m 0644 -D $(INTERNAL_LIB_DIR)/* -t $(INSTALL_LIB_DIR)
+ifeq ($(ENABLE_LYCHEE), n)
+	@cp -dpRf $(EXTERN_LIB_ABSL_DIR)/lib/libabsl.a $(INSTALL_LIB_DIR)
+	@cp -dpRf $(EXTERN_LIB_BOOST_DIR)/lib/* $(INSTALL_LIB_DIR)
+	@cp -dpRf $(EXTERN_LIB_OSQP_DIR)/lib/*.so $(INSTALL_LIB_DIR)
+	@cp -dpRf $(EXTERN_LIB_PROJ_DIR)/lib/*.a $(INSTALL_LIB_DIR)
+	@cp -dpRf $(EXTERN_LIB_TINYXML_DIR)/lib/*.a $(INSTALL_LIB_DIR)
+endif
 	$(INSTALL) -m 0755 -D $(INTERNAL_BIN_DIR)/map/* -t $(INSTALL_BIN_DIR)/map
 	$(INSTALL) -m 0644 -D $(TOP_DIR)/modules/map/relative_map/conf/* -t $(INSTALL_DIR)/modules/map/relative_map/conf
 	$(INSTALL) -m 0644 -D $(TOP_DIR)/modules/map/relative_map/dag/*.dag -t $(INSTALL_DIR)/modules/map/relative_map/dag
@@ -125,7 +132,7 @@ TEST_LDFLAG += $(EXTERN_LIB_GTEST_LIB) $(EXTERN_LIB_UTILS_LINUX_LIBS_LIB)
 TEST_LDFLAG += $(EXTERN_LIB_ABSL_LIB) $(EXTERN_LIB_TINYXML_LIB)
 TEST_LDFLAG += $(EXTERN_LIB_PROJ_LIB)
 TEST_LDFLAG += $(EXTERN_LIB_ZLIB_LIB) $(EXTERN_LIB_SQL_LIB) $(EXTERN_LIB_OSQP_LIB)
-TEST_LDFLAG += -L$(INTERNAL_LIB_DIR) -lproto -lcyber -lcommon
+TEST_LDFLAG += -L$(INTERNAL_LIB_DIR) -lcommon_msgs -lcyber -lcommon
 TEST_LDFLAG += -latomic
 
 define MAKE_SELF_TEST

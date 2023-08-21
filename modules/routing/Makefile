@@ -32,7 +32,7 @@ include $(TOP_DIR)/ambabuild/extern_lib.mk
 ## for module library 
 ####################################################################
 
-SUBDIRS := common core graph strategy tools topo_creator
+SUBDIRS := common core graph strategy tools topo_creator proto
 
 src := routing.cc routing_component.cc
 obj := $(src:.cc=.o)
@@ -54,6 +54,8 @@ strategy_obj := $(strategy_src:.cc=.o)
 topo_creator_src := $(shell find topo_creator -type f -name '*.cc' -not -name '*test.cc')
 topo_creator_obj := $(topo_creator_src:.cc=.o)
 
+proto_src := $(shell find proto -name '*.cc')
+proto_obj := $(proto_src:.cc=.o)
 
 ####################################################################
 ## FLAGS 
@@ -63,7 +65,7 @@ COMPONENT_INC += $(EXTERN_LIB_FASTCDR_INC) $(EXTERN_LIB_FASTRTPS_INC) $(EXTERN_L
 COMPONENT_INC += $(EXTERN_LIB_EIGEN_INC) $(EXTERN_LIB_PROJ_INC) $(EXTERN_LIB_TINYXML_INC)
 ## for test
 COMPONENT_INC += $(EXTERN_LIB_GTEST_INC)
-COMPONENT_INC += -O0 -g
+#COMPONENT_INC += -O0 -g
 
 COMPONENT_LDFLAG := $(EXTERN_LIB_FASTCDR_LIB) $(EXTERN_LIB_FASTRTPS_LIB)
 COMPONENT_LDFLAG += $(EXTERN_LIB_OPENSSL_LIB)
@@ -71,18 +73,25 @@ COMPONENT_LDFLAG += $(EXTERN_LIB_PROTOBUF_LIB) $(EXTERN_LIB_GFLAGS_LIB) $(EXTERN
 COMPONENT_LDFLAG += $(EXTERN_LIB_GTEST_LIB) $(EXTERN_LIB_UTILS_LINUX_LIBS_LIB)
 COMPONENT_LDFLAG += $(EXTERN_LIB_ABSL_LIB) $(EXTERN_LIB_TINYXML_LIB) $(EXTERN_LIB_PROJ_LIB)
 COMPONENT_LDFLAG += -latomic
-COMPONENT_LDFLAG += -L$(INTERNAL_LIB_DIR) -lproto -lcyber -lcommon -lhdmap_lib
+COMPONENT_LDFLAG += -L$(INTERNAL_LIB_DIR) -lcommon_msgs -lcyber -lcommon -lhdmap_lib
 
 COM_SHARED_LIB_NAMES = routing_component
 
 ## for component.so
-routing_component_src := $(src) $(common_src) $(core_src) $(graph_src) $(strategy_src) $(topo_creator_src)
-routing_component_obj := $(obj) $(common_obj) $(core_obj) $(graph_obj) $(strategy_obj) $(topo_creator_obj)
+routing_component_src := $(src) $(common_src) $(core_src) $(graph_src) $(strategy_src) $(topo_creator_src) $(proto_src)
+routing_component_obj := $(obj) $(common_obj) $(core_obj) $(graph_obj) $(strategy_obj) $(topo_creator_obj) $(proto_obj)
 
 ####################################################################
 ## install
 ####################################################################
 install:
+ifeq ($(ENABLE_LYCHEE), n)
+	@cp -dpRf $(EXTERN_LIB_ABSL_DIR)/lib/libabsl.a $(INSTALL_LIB_DIR)
+	@cp -dpRf $(EXTERN_LIB_BOOST_DIR)/lib/* $(INSTALL_LIB_DIR)
+	@cp -dpRf $(EXTERN_LIB_OSQP_DIR)/lib/*.so $(INSTALL_LIB_DIR)
+	@cp -dpRf $(EXTERN_LIB_PROJ_DIR)/lib/*.a $(INSTALL_LIB_DIR)
+	@cp -dpRf $(EXTERN_LIB_TINYXML_DIR)/lib/*.a $(INSTALL_LIB_DIR)
+endif
 	$(INSTALL) -m 0644 -D $(INTERNAL_COM_LIB_DIR)/* -t $(INSTALL_COM_LIB_DIR)
 	$(INSTALL) -m 0755 -D $(INTERNAL_BIN_DIR)/routing/* -t $(INSTALL_BIN_DIR)/routing
 	$(INSTALL) -m 0644 -D $(TOP_DIR)/modules/routing/conf/* -t $(INSTALL_DIR)/modules/routing/conf
@@ -115,7 +124,7 @@ TEST_LDFLAG += $(EXTERN_LIB_GTEST_LIB) $(EXTERN_LIB_UTILS_LINUX_LIBS_LIB)
 TEST_LDFLAG += $(EXTERN_LIB_ABSL_LIB) $(EXTERN_LIB_TINYXML_LIB)
 TEST_LDFLAG += $(EXTERN_LIB_PROJ_LIB)
 TEST_LDFLAG += $(EXTERN_LIB_ZLIB_LIB) $(EXTERN_LIB_SQL_LIB) $(EXTERN_LIB_OSQP_LIB)
-TEST_LDFLAG += -L$(INTERNAL_LIB_DIR) -lproto -lcyber -lcommon -lhdmap_lib
+TEST_LDFLAG += -L$(INTERNAL_LIB_DIR) -lcommon_msgs -lcyber -lcommon -lhdmap_lib
 TEST_LDFLAG += -latomic
 
 define MAKE_SELF_TEST

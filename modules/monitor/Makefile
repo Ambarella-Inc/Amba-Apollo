@@ -59,7 +59,7 @@ COMPONENT_INC := $(EXTERN_LIB_GLOG_INC) $(EXTERN_LIB_GFLAGS_INC) $(EXTERN_LIB_PR
 COMPONENT_INC += $(EXTERN_LIB_FASTCDR_INC) $(EXTERN_LIB_FASTRTPS_INC)
 COMPONENT_INC += $(EXTERN_LIB_ABSL_INC) $(EXTERN_LIB_BOOST_INC)
 ## for test
-COMPONENT_INC += -O0 -g
+#COMPONENT_INC += -O0 -g
 COMPONENT_INC += $(EXTERN_LIB_GTEST_INC)
 
 COMPONENT_LDFLAG := $(EXTERN_LIB_FASTCDR_LIB) $(EXTERN_LIB_FASTRTPS_LIB)
@@ -68,7 +68,7 @@ COMPONENT_LDFLAG += $(EXTERN_LIB_PROTOBUF_LIB) $(EXTERN_LIB_GFLAGS_LIB) $(EXTERN
 COMPONENT_LDFLAG += $(EXTERN_LIB_GTEST_LIB) $(EXTERN_LIB_UTILS_LINUX_LIBS_LIB)
 COMPONENT_LDFLAG += $(EXTERN_LIB_ABSL_LIB) $(EXTERN_LIB_BOOST_LIB) $(EXTERN_LIB_OSQP_LIB)
 COMPONENT_LDFLAG += -latomic
-COMPONENT_LDFLAG += -L$(INTERNAL_LIB_DIR) -lproto -lcyber -lcommon -ldreamview_backend
+COMPONENT_LDFLAG += -L$(INTERNAL_LIB_DIR) -lcommon_msgs -lcyber -lcommon -ldreamview_backend
 COMPONENT_LDFLAG += -L$(INTERNAL_COM_LIB_DIR) -lstatic_transform_component
 
 COM_SHARED_LIB_NAMES = monitor
@@ -81,6 +81,10 @@ monitor_obj := $(obj) $(common_obj) $(hardware_obj) $(software_obj)
 ## install
 ####################################################################
 install:
+ifeq ($(ENABLE_LYCHEE), n)
+	@cp -dpRf $(EXTERN_LIB_ABSL_DIR)/lib/libabsl.a $(INSTALL_LIB_DIR)
+	@cp -dpRf $(EXTERN_LIB_BOOST_DIR)/lib/* $(INSTALL_LIB_DIR)
+endif
 	$(INSTALL) -m 0644 -D $(INTERNAL_COM_LIB_DIR)/* -t $(INSTALL_COM_LIB_DIR)
 	$(INSTALL) -m 0755 -D $(INTERNAL_BIN_DIR)/monitor/* -t $(INSTALL_BIN_DIR)/monitor
 	$(INSTALL) -m 0644 -D $(TOP_DIR)/modules/monitor/dag/*.dag -t $(INSTALL_DIR)/modules/monitor/dag
@@ -108,7 +112,7 @@ TEST_LDFLAG += $(EXTERN_LIB_TF2_LIB) $(EXTERN_LIB_PROJ_LIB)
 TEST_LDFLAG += $(EXTERN_LIB_ZLIB_LIB) $(EXTERN_LIB_SQL_LIB) $(EXTERN_LIB_OSQP_LIB)
 TEST_LDFLAG += $(EXTERN_LIB_YAML_LIB) $(EXTERN_LIB_CIVETWEB_LIB) $(EXTERN_LIB_TBB_LIB) $(EXTERN_LIB_OPENCV_LIB) $(EXTERN_LIB_JPEG_LIB) $(EXTERN_LIB_PNG_LIB)
 TEST_LDFLAG += $(EXTERN_LIB_PCL_LIB)
-TEST_LDFLAG += -L$(INTERNAL_LIB_DIR) -lproto -lcyber -lcommon -lhdmap_lib -lpnc_map_lib
+TEST_LDFLAG += -L$(INTERNAL_LIB_DIR) -lcommon_msgs -lcyber -lcommon -lhdmap_lib -lpnc_map_lib
 TEST_LDFLAG += -latomic
 
 define MAKE_SELF_TEST

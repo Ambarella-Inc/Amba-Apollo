@@ -33,7 +33,7 @@ include $(TOP_DIR)/ambabuild/extern_lib.mk
 ## for module library 
 ####################################################################
 
-SUBDIRS := backend
+SUBDIRS := backend proto
 
 src := main.cc
 obj := $(src:.cc=.o)
@@ -43,7 +43,10 @@ backend_dir := backend/common backend/fuel_monitor backend/handlers backend/map 
                backend/sim_control backend/sim_control_manager backend/simulation_world backend/hmi backend/point_cloud
 backend_src := $(shell find $(backend_dir) -maxdepth 3 -type f -name '*.cc' -not -name '*test.cc' -not -name '*main.cc') backend/dreamview.cc
 backend_obj := $(backend_src:.cc=.o)
-#$(info $(hdmap_obj))
+
+proto_src := $(shell find proto -name '*.cc')
+proto_obj := $(proto_src:.cc=.o)
+
 COMPONENT_SRC := $(src)
 COMPONENT_OBJ := $(obj)
 
@@ -57,7 +60,7 @@ COMPONENT_INC += $(EXTERN_LIB_PCL_INC)
 
 ## for test
 COMPONENT_INC += $(EXTERN_LIB_GTEST_INC)
-COMPONENT_INC += -O0 -g
+#COMPONENT_INC += -O0 -g
 
 COMPONENT_LDFLAG := $(EXTERN_LIB_FASTCDR_LIB) $(EXTERN_LIB_FASTRTPS_LIB)
 COMPONENT_LDFLAG += $(EXTERN_LIB_OPENSSL_LIB)
@@ -66,21 +69,30 @@ COMPONENT_LDFLAG += $(EXTERN_LIB_GTEST_LIB) $(EXTERN_LIB_UTILS_LINUX_LIBS_LIB)
 COMPONENT_LDFLAG += $(EXTERN_LIB_BOOST_LIB) $(EXTERN_LIB_ABSL_LIB) $(EXTERN_LIB_TINYXML_LIB) $(EXTERN_LIB_PROJ_LIB)
 COMPONENT_LDFLAG += $(EXTERN_LIB_CIVETWEB_LIB) $(EXTERN_LIB_TBB_LIB) $(EXTERN_LIB_OPENCV_LIB) $(EXTERN_LIB_JPEG_LIB) $(EXTERN_LIB_PNG_LIB) $(EXTERN_LIB_PCL_LIB)
 COMPONENT_LDFLAG += -latomic
-COMPONENT_LDFLAG += -L$(INTERNAL_LIB_DIR) -lproto -lcyber -lcommon -lhdmap_lib
+COMPONENT_LDFLAG += -L$(INTERNAL_LIB_DIR) -lcommon_msgs -lcyber -lcommon -lhdmap_lib
 
 SHARED_LIB_NAMES = dreamview_backend
 
 COM_SHARED_LIB_NAMES = 
 
 ## for component.so
-dreamview_backend_src := $(backend_src)
-dreamview_backend_obj := $(backend_obj)
+dreamview_backend_src := $(backend_src) $(proto_src)
+dreamview_backend_obj := $(backend_obj) $(proto_obj)
 
 ####################################################################
 ## install
 ####################################################################
 install:
 	$(INSTALL) -m 0644 -D $(INTERNAL_LIB_DIR)/* -t $(INSTALL_LIB_DIR)
+ifeq ($(ENABLE_LYCHEE), n)
+	@cp -dpRf $(EXTERN_LIB_ABSL_DIR)/lib/libabsl.a $(INSTALL_LIB_DIR)
+	@cp -dpRf $(EXTERN_LIB_BOOST_DIR)/lib/* $(INSTALL_LIB_DIR)
+	@cp -dpRf $(EXTERN_LIB_OSQP_DIR)/lib/*.so $(INSTALL_LIB_DIR)
+	@cp -dpRf $(EXTERN_LIB_PROJ_DIR)/lib/*.a $(INSTALL_LIB_DIR)
+	@cp -dpRf $(EXTERN_LIB_TINYXML_DIR)/lib/*.a $(INSTALL_LIB_DIR)
+	@cp -dpRf $(EXTERN_LIB_PCL_DIR)/lib/*.so* $(INSTALL_LIB_DIR)
+	@cp -dpRf $(EXTERN_LIB_CIVETWEB_DIR)/lib/*.so* $(INSTALL_LIB_DIR)
+endif
 	$(INSTALL) -m 0755 -D $(INTERNAL_BIN_DIR)/dreamview/* -t $(INSTALL_BIN_DIR)/dreamview
 	$(INSTALL) -m 0644 -D $(TOP_DIR)/modules/dreamview/conf/*.txt -t $(INSTALL_DIR)/modules/dreamview/conf
 	$(INSTALL) -m 0644 -D $(TOP_DIR)/modules/dreamview/conf/*.conf -t $(INSTALL_DIR)/modules/dreamview/conf	
@@ -124,7 +136,7 @@ TEST_LDFLAG += $(EXTERN_LIB_TF2_LIB) $(EXTERN_LIB_PROJ_LIB)
 TEST_LDFLAG += $(EXTERN_LIB_ZLIB_LIB) $(EXTERN_LIB_SQL_LIB) $(EXTERN_LIB_OSQP_LIB)
 TEST_LDFLAG += $(EXTERN_LIB_YAML_LIB) $(EXTERN_LIB_CIVETWEB_LIB) $(EXTERN_LIB_TBB_LIB) $(EXTERN_LIB_OPENCV_LIB) $(EXTERN_LIB_JPEG_LIB) $(EXTERN_LIB_PNG_LIB)
 TEST_LDFLAG += $(EXTERN_LIB_PCL_LIB)
-TEST_LDFLAG += -L$(INTERNAL_LIB_DIR) -lproto -lcyber -lcommon -lhdmap_lib -lpnc_map_lib
+TEST_LDFLAG += -L$(INTERNAL_LIB_DIR) -lcommon_msgs -lcyber -lcommon -lhdmap_lib -lpnc_map_lib
 TEST_LDFLAG += -latomic
 
 define MAKE_SELF_TEST

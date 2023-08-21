@@ -312,6 +312,9 @@ ifeq ($(ENABLE_LYCHEE), n)
 endif
 	@$(INSTALL) -m 0644 -D $(INTERNAL_COM_LIB_DIR)/* -t $(INSTALL_COM_LIB_DIR)
 	@$(INSTALL) -m 0755 -D $(INTERNAL_BIN_DIR)/cyber/* -t $(INSTALL_BIN_DIR)/cyber
+	@$(INSTALL) -m 0755  $(INTERNAL_BIN_DIR)/cyber/mainboard_test $(INSTALL_BIN_DIR)/mainboard
+	@$(INSTALL) -m 0755  $(INTERNAL_BIN_DIR)/cyber/cyber_monitor $(INSTALL_BIN_DIR)/cyber_monitor
+	@$(INSTALL) -m 0755  $(INTERNAL_BIN_DIR)/cyber/cyber_recorder $(INSTALL_BIN_DIR)/cyber_recorder
 	@$(INSTALL) -m 0755 -D $(TOP_DIR)/for_test/cyber_self_test.sh $(INSTALL_BIN_DIR)/cyber
 	@$(INSTALL) -m 0644 -D $(TOP_DIR)/cyber/conf/* -t $(INSTALL_DIR)/cyber/conf
 	@$(INSTALL) -m 0644 -D $(TOP_DIR)/cyber/examples/common_component_example/*.dag -t $(INSTALL_DIR)/cyber/dag

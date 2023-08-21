@@ -1,8 +1,8 @@
 ###############################################################################
-## apollo/modules/planning/proto/Makefile
+## apollo/modules/planning/proto/math/Makefile
 ##
 ## History:
-##    2022/11/10 - [Yang Yu] Created file
+##    2023/08/10 - [Yang Yu] Created file
 ##
 ## Copyright (C) 2022 Ambarella International LP
 ##
@@ -22,12 +22,11 @@
 
 default: all
 
-include ../../../ambabuild/prerequisites.mk
+include ../../../../ambabuild/prerequisites.mk
 
 include $(TOP_DIR)/ambabuild/config.mk
 include $(TOP_DIR)/ambabuild/extern_lib.mk
 
-SUBDIRS := math
 
 COMPONENT_SRC := $(shell find -maxdepth 1 -name '*.cc')
 COMPONENT_OBJ := $(COMPONENT_SRC:.cc=.o)

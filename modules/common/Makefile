@@ -61,15 +61,15 @@ math_src := math/math_utils.cc math/vec2d.cc math/aabox2d.cc math/box2d.cc math/
             math/cartesian_frenet_conversion.cc math/integral.cc math/linear_quadratic_regulator.cc math/qp_solver/qp_solver.cc math/mpc_osqp.cc
 math_obj := $(math_src:math/%.cc=math/%.o)
 
-vehicle_state_src := vehicle_state/vehicle_state_provider.cc
+vehicle_state_src := vehicle_state/vehicle_state_provider.cc vehicle_state/proto/vehicle_state.pb.cc
 vehicle_state_obj := $(vehicle_state_src:vehicle_state/%.cc=vehicle_state/%.o)
 
-vehicle_model_src := vehicle_model/vehicle_model.cc
+vehicle_model_src := vehicle_model/vehicle_model.cc vehicle_model/proto/vehicle_model_config.pb.cc
 vehicle_model_obj := $(vehicle_model_src:vehicle_model/%.cc=vehicle_model/%.o)
 
 ## for gflags in other modules
-add_flags_src := ../localization/common/localization_gflags.cc ../planning/common/planning_gflags.cc
-add_flags_obj := ../localization/common/localization_gflags.o ../planning/common/planning_gflags.o
+add_flags_src := #../localization/common/localization_gflags.cc ../planning/common/planning_gflags.cc
+add_flags_obj := #../localization/common/localization_gflags.o ../planning/common/planning_gflags.o
 
 ####################################################################
 ## FLAGS 
@@ -84,7 +84,7 @@ COMPONENT_LDFLAG += $(EXTERN_LIB_PROTOBUF_LIB) $(EXTERN_LIB_GFLAGS_LIB) $(EXTERN
 COMPONENT_LDFLAG += $(EXTERN_LIB_GTEST_LIB) $(EXTERN_LIB_UTILS_LINUX_LIBS_LIB)
 COMPONENT_LDFLAG += $(EXTERN_LIB_ABSL_LIB) $(EXTERN_LIB_SQL_LIB) $(EXTERN_LIB_OSQP_LIB)
 COMPONENT_LDFLAG += -latomic
-COMPONENT_LDFLAG += -L$(INTERNAL_LIB_DIR) -lproto -lcyber
+COMPONENT_LDFLAG += -L$(INTERNAL_LIB_DIR) -lcommon_msgs -lcyber
 
 
 SHARED_LIB_NAMES = common
@@ -101,7 +101,12 @@ common_obj := $(adapters_obj) $(configs_obj) $(filters_obj) $(kv_db_obj) $(laten
 ####################################################################
 install:
 	$(INSTALL) -m 0644 -D $(INTERNAL_LIB_DIR)/* -t $(INSTALL_LIB_DIR)
-##$(INSTALL) -m 0644 -D $(INTERNAL_COM_LIB_DIR)/* -t $(INSTALL_COM_LIB_DIR)
+ifeq ($(ENABLE_LYCHEE), n)
+	@cp -dpRf $(EXTERN_LIB_ABSL_DIR)/lib/libabsl.a $(INSTALL_LIB_DIR)
+	@cp -dpRf $(EXTERN_LIB_ZLIB_DIR)/usr/lib/* $(INSTALL_LIB_DIR)
+	@cp -dpRf $(EXTERN_LIB_SQL_DIR)/usr/lib/* $(INSTALL_LIB_DIR)
+	@cp -dpRf $(EXTERN_LIB_OSQP_DIR)/lib/* $(INSTALL_LIB_DIR)
+endif
 	$(INSTALL) -m 0755 -D $(INTERNAL_BIN_DIR)/common/* -t $(INSTALL_BIN_DIR)/common
 	$(INSTALL) -m 0644 -D $(TOP_DIR)/modules/common/data/* -t $(INSTALL_DIR)/modules/common/data
 
@@ -121,7 +126,7 @@ endif
 all_self_tests: vehicle_config_helper_test monitor_log_buffer_test
 
 
-TEST_LDFLAG := -L$(INTERNAL_LIB_DIR) -lproto -lcyber -lcommon
+TEST_LDFLAG := -L$(INTERNAL_LIB_DIR) -lcommon_msgs -lcyber -lcommon
 TEST_LDFLAG += $(EXTERN_LIB_FASTCDR_LIB) $(EXTERN_LIB_FASTRTPS_LIB) $(EXTERN_LIB_OPENSSL_LIB)
 TEST_LDFLAG += $(EXTERN_LIB_PROTOBUF_LIB) $(EXTERN_LIB_GFLAGS_LIB) $(EXTERN_LIB_GLOG_LIB)
 TEST_LDFLAG += $(EXTERN_LIB_GTEST_LIB) $(EXTERN_LIB_UTILS_LINUX_LIBS_LIB)

@@ -45,9 +45,10 @@ void CanClientFactory::RegisterCanClients() {
 #endif
   Register(CANCardParameter::SOCKET_CAN_RAW,
            []() -> CanClient* { return new can::SocketCanClientRaw(); });
-
+#if 0 // abondon HERMES_CAN temporarily
   Register(CANCardParameter::HERMES_CAN,
            []() -> CanClient* { return new can::HermesCanClient(); });
+#endif
 }
 
 std::unique_ptr<CanClient> CanClientFactory::CreateCANClient(

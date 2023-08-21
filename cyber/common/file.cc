@@ -122,7 +122,7 @@ bool GetProtoFromFile(const std::string &file_name,
                                              file_name);
   }
 
-  if (!PathExists(file_name)) {
+  if (!PathExists(file_path)) {
     AERROR << "File does not exist! " << file_name;
     return false;
   }

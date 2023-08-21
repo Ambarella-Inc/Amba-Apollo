@@ -28,7 +28,7 @@ include $(TOP_DIR)/ambabuild/config.mk
 include $(TOP_DIR)/ambabuild/extern_lib.mk
 
 
-SUBDIRS := common tools
+SUBDIRS := common tools proto
 
 COMPONENT_SRC := $(shell find -maxdepth 1 -name '*.cc')
 COMPONENT_OBJ := $(COMPONENT_SRC:.cc=.o)

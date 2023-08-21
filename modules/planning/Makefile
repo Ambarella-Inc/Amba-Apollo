@@ -33,13 +33,13 @@ include $(TOP_DIR)/ambabuild/extern_lib.mk
 ####################################################################
 
 SUBDIRS := common constraint_checker lattice learning_based math navi/decider pipeline planner traffic_rules tuning scenarios
-SUBDIRS += open_space reference_line tasks
+SUBDIRS += open_space reference_line tasks proto
 
 src := $(shell find -maxdepth 1 -name '*.cc')
 obj := $(src:.cc=.o)
 
 ## sub modules
-common_src := $(shell find common -type f -name '*.cc' -not -name '*test.cc' -not -name '*gflags.cc')
+common_src := $(shell find common -type f -name '*.cc' -not -name '*test.cc') #-not -name '*gflags.cc'
 common_obj := $(common_src:.cc=.o)
 #$(info $(hdmap_obj))
 
@@ -66,7 +66,7 @@ planner_obj := $(planner_src:.cc=.o)
 
 traffic_rules_src := $(shell find traffic_rules -type f -name '*.cc' -not -name '*test.cc')
 traffic_rules_obj := $(traffic_rules_src:.cc=.o)
-
+#seems no use now
 tuning_src := $(shell find tuning -type f -name '*.cc' -not -name '*test.cc')
 tuning_obj := $(tuning_src:.cc=.o)
 
@@ -81,6 +81,9 @@ reference_line_obj := $(reference_line_src:.cc=.o)
 
 tasks_src := $(shell find tasks -type f -name '*.cc' -not -name '*test.cc' -not -name '*learning*.cc')
 tasks_obj := $(tasks_src:.cc=.o)
+
+proto_src := $(shell find proto -name '*.cc')
+proto_obj := $(proto_src:.cc=.o)
 
 COMPONENT_SRC := $(src)
 COMPONENT_OBJ := $(obj)
@@ -104,21 +107,35 @@ COMPONENT_LDFLAG += $(EXTERN_LIB_ABSL_LIB) $(EXTERN_LIB_BOOST_LIB) $(EXTERN_LIB_
 COMPONENT_LDFLAG += $(EXTERN_LIB_OSQP_LIB) $(EXTERN_LIB_ADOLC_LIB) $(EXTERN_LIB_IPOPT_LIB) $(EXTERN_LIB_ADRSS_LIB)
 
 COMPONENT_LDFLAG += -latomic
-COMPONENT_LDFLAG += -L$(INTERNAL_LIB_DIR) -lproto -lcyber -lcommon -lhdmap_lib -lpnc_map_lib
+COMPONENT_LDFLAG += -L$(INTERNAL_LIB_DIR) -lcommon_msgs -lcyber -lcommon -lhdmap_lib -lpnc_map_lib
 
 COM_SHARED_LIB_NAMES = planning_component
 
 ## for component.so
 
 planning_component_src := $(src) $(common_src) $(constraint_checker_src) $(lattice_src) $(learning_based_src) $(math_src) $(navi/decider_src) $(planner_src) \
-                          $(traffic_rules_src) $(tuning_src) $(scenarios_src) $(open_space_src) $(reference_line_src) $(tasks_src)
+                          $(traffic_rules_src) $(scenarios_src) $(open_space_src) $(reference_line_src) $(tasks_src) $(proto_src) #$(tuning_src)
 planning_component_obj := $(obj) $(common_obj) $(constraint_checker_obj) $(lattice_obj) $(learning_based_obj) $(math_obj) $(navi/decider_obj) $(planner_obj) \
-                          $(traffic_rules_obj) $(tuning_obj) $(scenarios_obj) $(open_space_obj) $(reference_line_obj) $(tasks_obj)
+                          $(traffic_rules_obj) $(scenarios_obj) $(open_space_obj) $(reference_line_obj) $(tasks_obj) $(proto_obj) #$(tuning_obj)
 
 ####################################################################
 ## install
 ####################################################################
 install:
+ifeq ($(ENABLE_LYCHEE), n)
+	@cp -dpRf $(EXTERN_LIB_ABSL_DIR)/lib/libabsl.a $(INSTALL_LIB_DIR)
+	@cp -dpRf $(EXTERN_LIB_BOOST_DIR)/lib/* $(INSTALL_LIB_DIR)
+	@cp -dpRf $(EXTERN_LIB_OSQP_DIR)/lib/*.so $(INSTALL_LIB_DIR)
+	@cp -dpRf $(EXTERN_LIB_PROJ_DIR)/lib/*.a $(INSTALL_LIB_DIR)
+	@cp -dpRf $(EXTERN_LIB_TINYXML_DIR)/lib/*.a $(INSTALL_LIB_DIR)
+	@cp -dpRf $(EXTERN_LIB_TBB_DIR)/usr/lib/*.so* $(INSTALL_LIB_DIR)
+	@cp -dpRf $(EXTERN_LIB_OPENCV_DIR)/usr/lib/*.so* $(INSTALL_LIB_DIR)
+	@cp -dpRf $(EXTERN_LIB_JPEG_DIR)/usr/lib/*.so* $(INSTALL_LIB_DIR)
+	@cp -dpRf $(EXTERN_LIB_PNG_DIR)/usr/lib/*.so* $(INSTALL_LIB_DIR)
+	@cp -dpRf $(EXTERN_LIB_ADOLC_DIR)/lib64/*.a $(INSTALL_LIB_DIR)
+	@cp -dpRf $(EXTERN_LIB_ADRSS_DIR)/lib/*.so* $(INSTALL_LIB_DIR)
+	@cp -dpRf $(EXTERN_LIB_IPOPT_DIR)/lib/libipopt_full.a $(INSTALL_LIB_DIR)
+endif
 	$(INSTALL) -m 0644 -D $(INTERNAL_COM_LIB_DIR)/* -t $(INSTALL_COM_LIB_DIR)
 	$(INSTALL) -m 0755 -D $(INTERNAL_BIN_DIR)/planning/* -t $(INSTALL_BIN_DIR)/planning
 	$(INSTALL) -m 0644 -D $(TOP_DIR)/modules/planning/conf/*.txt -t $(INSTALL_DIR)/modules/planning/conf
@@ -165,7 +182,7 @@ TEST_LDFLAG += $(EXTERN_LIB_GTEST_LIB) $(EXTERN_LIB_UTILS_LINUX_LIBS_LIB)
 TEST_LDFLAG += $(EXTERN_LIB_BOOST_LIB) $(EXTERN_LIB_ABSL_LIB) $(EXTERN_LIB_TINYXML_LIB)
 TEST_LDFLAG += $(EXTERN_LIB_PROJ_LIB) $(EXTERN_LIB_ZLIB_LIB) $(EXTERN_LIB_SQL_LIB) $(EXTERN_LIB_TBB_LIB) $(EXTERN_LIB_OPENCV_LIB) $(EXTERN_LIB_JPEG_LIB) $(EXTERN_LIB_PNG_LIB)
 TEST_LDFLAG += $(EXTERN_LIB_OSQP_LIB) $(EXTERN_LIB_ADOLC_LIB) $(EXTERN_LIB_IPOPT_LIB) $(EXTERN_LIB_ADRSS_LIB)
-TEST_LDFLAG += -L$(INTERNAL_LIB_DIR) -lproto -lcyber -lcommon -lhdmap_lib -lpnc_map_lib
+TEST_LDFLAG += -L$(INTERNAL_LIB_DIR) -lcommon_msgs -lcyber -lcommon -lhdmap_lib -lpnc_map_lib
 TEST_LDFLAG += -latomic
 
 define MAKE_SELF_TEST

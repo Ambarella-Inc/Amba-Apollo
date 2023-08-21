@@ -27,7 +27,7 @@ include ../../../ambabuild/prerequisites.mk
 include $(TOP_DIR)/ambabuild/config.mk
 include $(TOP_DIR)/ambabuild/extern_lib.mk
 
-SUBDIRS := can_client can_comm common 
+SUBDIRS := can_client can_comm common proto
 
 COMPONENT_SRC := sensor_gflags.cc
 COMPONENT_OBJ := $(COMPONENT_SRC:.cc=.o)

@@ -1,8 +1,8 @@
 ###############################################################################
-## apollo/modules/planning/proto/Makefile
+## apollo/modules/drivers/canbus/proto/Makefile
 ##
 ## History:
-##    2022/11/10 - [Yang Yu] Created file
+##    2023/08/09 - [Yang Yu] Created file
 ##
 ## Copyright (C) 2022 Ambarella International LP
 ##
@@ -22,16 +22,22 @@
 
 default: all
 
-include ../../../ambabuild/prerequisites.mk
+include ../../../../ambabuild/prerequisites.mk
 
 include $(TOP_DIR)/ambabuild/config.mk
 include $(TOP_DIR)/ambabuild/extern_lib.mk
 
-SUBDIRS := math
 
-COMPONENT_SRC := $(shell find -maxdepth 1 -name '*.cc')
+####################################################################
+## for module library 
+####################################################################
+
+COMPONENT_SRC := $(shell find ./ -name '*.cc')
 COMPONENT_OBJ := $(COMPONENT_SRC:.cc=.o)
 
+####################################################################
+## FLAGS 
+####################################################################
 COMPONENT_INC := $(EXTERN_LIB_GLOG_INC) $(EXTERN_LIB_GFLAGS_INC) $(EXTERN_LIB_PROTOBUF_INC)
 COMPONENT_INC += $(EXTERN_LIB_FASTCDR_INC) $(EXTERN_LIB_FASTRTPS_INC)
 

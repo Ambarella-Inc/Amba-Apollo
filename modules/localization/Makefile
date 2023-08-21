@@ -33,12 +33,15 @@ include $(TOP_DIR)/ambabuild/extern_lib.mk
 ## for module library 
 ####################################################################
 
-SUBDIRS := common
+SUBDIRS := common proto
 SUBDIRS += rtk
 
 ## sub modules
 common_src := common/localization_gflags.cc
 common_obj := $(common_src:common/%.cc=common/%.o)
+
+proto_src := $(shell find proto -name '*.cc')
+proto_obj := $(proto_src:.cc=.o)
 
 rtk_src := rtk/rtk_localization.cc rtk/rtk_localization_component.cc
 rtk_obj := $(rtk_src:rtk/%.cc=rtk/%.o)
@@ -58,19 +61,25 @@ COMPONENT_LDFLAG += $(EXTERN_LIB_PROTOBUF_LIB) $(EXTERN_LIB_GFLAGS_LIB) $(EXTERN
 COMPONENT_LDFLAG += $(EXTERN_LIB_GTEST_LIB) $(EXTERN_LIB_UTILS_LINUX_LIBS_LIB)
 COMPONENT_LDFLAG += $(EXTERN_LIB_ABSL_LIB) $(EXTERN_LIB_SQL_LIB)
 COMPONENT_LDFLAG += -latomic
-COMPONENT_LDFLAG += -L$(INTERNAL_LIB_DIR) -lproto -lcyber -lcommon
+COMPONENT_LDFLAG += -L$(INTERNAL_LIB_DIR) -lcommon_msgs -lcyber -lcommon
 COMPONENT_LDFLAG += -L$(INTERNAL_COM_LIB_DIR) -lstatic_transform_component
 
 COM_SHARED_LIB_NAMES = rtk_localization_component
 
 ## for component.so
-rtk_localization_component_src := $(rtk_src) #$(common_src) $(proto_src)
-rtk_localization_component_obj := $(rtk_obj) #$(common_obj) $(proto_obj)
+rtk_localization_component_src := $(rtk_src) $(common_src) $(proto_src)
+rtk_localization_component_obj := $(rtk_obj) $(common_obj) $(proto_obj)
 
 ####################################################################
 ## install
 ####################################################################
 install:
+ifeq ($(ENABLE_LYCHEE), n)
+	@cp -dpRf $(EXTERN_LIB_ABSL_DIR)/lib/libabsl.a $(INSTALL_LIB_DIR)
+	@cp -dpRf $(EXTERN_LIB_YAML_DIR)/lib/*so* $(INSTALL_LIB_DIR)
+	@cp -dpRf $(EXTERN_LIB_TF2_DIR)/lib/* $(INSTALL_LIB_DIR)
+	@cp -dpRf $(EXTERN_LIB_BOOST_DIR)/lib/* $(INSTALL_LIB_DIR)
+endif
 	$(INSTALL) -m 0644 -D $(INTERNAL_COM_LIB_DIR)/* -t $(INSTALL_COM_LIB_DIR)
 	$(INSTALL) -m 0755 -D $(INTERNAL_BIN_DIR)/localization/* -t $(INSTALL_BIN_DIR)/localization
 	$(INSTALL) -m 0644 -D $(TOP_DIR)/modules/localization/conf/* -t $(INSTALL_DIR)/modules/localization/conf
@@ -102,7 +111,7 @@ TEST_LDFLAG += $(EXTERN_LIB_PROTOBUF_LIB) $(EXTERN_LIB_GFLAGS_LIB) $(EXTERN_LIB_
 TEST_LDFLAG += $(EXTERN_LIB_GTEST_LIB) $(EXTERN_LIB_UTILS_LINUX_LIBS_LIB)
 TEST_LDFLAG += $(EXTERN_LIB_ABSL_LIB) $(EXTERN_LIB_ZLIB_LIB) $(EXTERN_LIB_SQL_LIB)
 TEST_LDFLAG += $(EXTERN_LIB_YAML_LIB) $(EXTERN_LIB_BOOST_LIB) $(EXTERN_LIB_OSQP_LIB) $(EXTERN_LIB_TF2_LIB)
-TEST_LDFLAG += -L$(INTERNAL_LIB_DIR) -lproto -lcyber -lcommon
+TEST_LDFLAG += -L$(INTERNAL_LIB_DIR) -lcommon_msgs -lcyber -lcommon
 TEST_LDFLAG += -latomic
 
 define MAKE_SELF_TEST

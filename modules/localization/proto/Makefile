@@ -29,8 +29,7 @@ include $(TOP_DIR)/ambabuild/extern_lib.mk
 
 
 
-COMPONENT_SRC := pose.pb.cc gnss_pnt_result.pb.cc localization_status.pb.cc localization_config.pb.cc localization_config.pb.cc \
-                 imu.pb.cc localization.pb.cc rtk_config.pb.cc gps.pb.cc measure.pb.cc sins_pva.pb.cc
+COMPONENT_SRC := $(shell find ./ -name '*.cc')
 COMPONENT_OBJ := $(COMPONENT_SRC:.cc=.o)
 
 COMPONENT_INC := $(EXTERN_LIB_GLOG_INC) $(EXTERN_LIB_GFLAGS_INC) $(EXTERN_LIB_PROTOBUF_INC)

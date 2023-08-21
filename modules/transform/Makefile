@@ -31,12 +31,16 @@ include $(TOP_DIR)/ambabuild/extern_lib.mk
 ####################################################################
 ## for module library 
 ####################################################################
+SUBDIRS := proto
 
 src := buffer.cc transform_broadcaster.cc static_transform_component.cc
 obj := $(src:%.cc=%.o)
 
 test_src := static_transform_component_test.cc
 test_obj := $(test_src:%.cc=%.o)
+
+proto_src := $(shell find proto -name '*.cc')
+proto_obj := $(proto_src:.cc=.o)
 
 COMPONENT_SRC := $(src) $(test_src)
 COMPONENT_OBJ := $(obj) $(test_obj)
@@ -57,19 +61,25 @@ COMPONENT_LDFLAG += $(EXTERN_LIB_GTEST_LIB) $(EXTERN_LIB_UTILS_LINUX_LIBS_LIB)
 COMPONENT_LDFLAG += $(EXTERN_LIB_ABSL_LIB)
 COMPONENT_LDFLAG += $(EXTERN_LIB_BOOST_LIB) $(EXTERN_LIB_TF2_LIB) $(EXTERN_LIB_YAML_LIB)
 COMPONENT_LDFLAG += -latomic
-COMPONENT_LDFLAG += -L$(INTERNAL_LIB_DIR) -lproto -lcyber -lcommon
+COMPONENT_LDFLAG += -L$(INTERNAL_LIB_DIR) -lcommon_msgs -lcyber -lcommon
 
 COM_SHARED_LIB_NAMES = static_transform_component
 
 ## for component.so
-static_transform_component_src := $(src)
-static_transform_component_obj := $(obj)
+static_transform_component_src := $(src) $(proto_src)
+static_transform_component_obj := $(obj) $(proto_obj)
 
 
 ####################################################################
 ## install
 ####################################################################
 install:
+ifeq ($(ENABLE_LYCHEE), n)
+	@cp -dpRf $(EXTERN_LIB_ABSL_DIR)/lib/libabsl.a $(INSTALL_LIB_DIR)
+	@cp -dpRf $(EXTERN_LIB_YAML_DIR)/lib/*so* $(INSTALL_LIB_DIR)
+	@cp -dpRf $(EXTERN_LIB_TF2_DIR)/lib/* $(INSTALL_LIB_DIR)
+	@cp -dpRf $(EXTERN_LIB_BOOST_DIR)/lib/* $(INSTALL_LIB_DIR)
+endif
 	$(INSTALL) -m 0644 -D $(INTERNAL_COM_LIB_DIR)/* -t $(INSTALL_COM_LIB_DIR)
 	$(INSTALL) -m 0755 -D $(INTERNAL_BIN_DIR)/transform/* -t $(INSTALL_BIN_DIR)/transform
 	$(INSTALL) -m 0644 -D $(TOP_DIR)/modules/transform/conf/* -t $(INSTALL_DIR)/modules/transform/conf
@@ -103,7 +113,7 @@ TEST_LDFLAG += $(EXTERN_LIB_PROTOBUF_LIB) $(EXTERN_LIB_GFLAGS_LIB) $(EXTERN_LIB_
 TEST_LDFLAG += $(EXTERN_LIB_GTEST_LIB) $(EXTERN_LIB_UTILS_LINUX_LIBS_LIB)
 TEST_LDFLAG += $(EXTERN_LIB_ABSL_LIB) $(EXTERN_LIB_ZLIB_LIB) $(EXTERN_LIB_SQL_LIB)
 TEST_LDFLAG += $(EXTERN_LIB_YAML_LIB) $(EXTERN_LIB_BOOST_LIB) $(EXTERN_LIB_OSQP_LIB) $(EXTERN_LIB_TF2_LIB)
-TEST_LDFLAG += -L$(INTERNAL_LIB_DIR) -lproto -lcyber -lcommon
+TEST_LDFLAG += -L$(INTERNAL_LIB_DIR) -lcommon_msgs -lcyber -lcommon
 TEST_LDFLAG += -latomic
 
 define MAKE_SELF_TEST

@@ -32,7 +32,7 @@ include $(TOP_DIR)/ambabuild/extern_lib.mk
 ## for module library 
 ####################################################################
 
-SUBDIRS := common controller submodules tools
+SUBDIRS := common controller submodules tools proto
 
 ## source files and object files
 src := control_component.cc
@@ -51,11 +51,14 @@ submodules_src := submodules/preprocessor_submodule.cc submodules/mpc_controller
                   submodules/lat_lon_controller_submodule.cc submodules/postprocessor_submodule.cc
 submodules_obj := $(submodules_src:submodules/%.cc=submodules/%.o)
 
+proto_src := $(shell find proto -name '*.cc')
+proto_obj := $(proto_src:.cc=.o)
+
 #tools_src := tools/control_tester.cc tools/pad_terminal.cc
 #tools_obj := $(tools_src:tools/%.cc=tools/%.o)
 
-COMPONENT_SRC := $(src) $(common_src) $(controller_src) $(submodules_src) control_component_test.cc
-COMPONENT_OBJ := $(obj) $(common_obj) $(controller_obj) $(submodules_obj) control_component_test.o
+COMPONENT_SRC := $(src) $(common_src) $(controller_src) $(submodules_src) $(proto_src) control_component_test.cc
+COMPONENT_OBJ := $(obj) $(common_obj) $(controller_obj) $(submodules_obj) $(proto_obj) control_component_test.o
 
 ####################################################################
 ## FLAGS 
@@ -65,7 +68,7 @@ COMPONENT_INC += $(EXTERN_LIB_FASTCDR_INC) $(EXTERN_LIB_FASTRTPS_INC)
 COMPONENT_INC += $(EXTERN_LIB_ABSL_INC) $(EXTERN_LIB_BOOST_INC) $(EXTERN_LIB_OSQP_INC)
 ## for test
 COMPONENT_INC += $(EXTERN_LIB_GTEST_INC)
-COMPONENT_INC += -O0 -g
+#COMPONENT_INC += -O0 -g
 
 COMPONENT_LDFLAG := $(EXTERN_LIB_FASTCDR_LIB) $(EXTERN_LIB_FASTRTPS_LIB)
 COMPONENT_LDFLAG += $(EXTERN_LIB_OPENSSL_LIB)
@@ -73,20 +76,25 @@ COMPONENT_LDFLAG += $(EXTERN_LIB_PROTOBUF_LIB) $(EXTERN_LIB_GFLAGS_LIB) $(EXTERN
 COMPONENT_LDFLAG += $(EXTERN_LIB_GTEST_LIB) $(EXTERN_LIB_UTILS_LINUX_LIBS_LIB)
 COMPONENT_LDFLAG += $(EXTERN_LIB_ABSL_LIB) $(EXTERN_LIB_BOOST_LIB) $(EXTERN_LIB_OSQP_LIB)
 COMPONENT_LDFLAG += -latomic
-COMPONENT_LDFLAG += -L$(INTERNAL_LIB_DIR) -lproto -lcyber -lcommon
+COMPONENT_LDFLAG += -L$(INTERNAL_LIB_DIR) -lcommon_msgs -lcyber -lcommon
 #COMPONENT_LDFLAG += -L$(INTERNAL_COM_LIB_DIR) -lstatic_transform_component
 
 COM_SHARED_LIB_NAMES = control_component
 
 ## for component.so
-control_component_src := $(src) $(common_src) $(controller_src) $(submodules_src)
-control_component_obj := $(obj) $(common_obj) $(controller_obj) $(submodules_obj)
+control_component_src := $(src) $(common_src) $(controller_src) $(submodules_src) $(proto_src)
+control_component_obj := $(obj) $(common_obj) $(controller_obj) $(submodules_obj) $(proto_obj)
 
 ####################################################################
 ## install
 ####################################################################
 install:
 	$(INSTALL) -m 0644 -D $(INTERNAL_LIB_DIR)/* -t $(INSTALL_LIB_DIR)
+ifeq ($(ENABLE_LYCHEE), n)
+	@cp -dpRf $(EXTERN_LIB_ABSL_DIR)/lib/libabsl.a $(INSTALL_LIB_DIR)
+	@cp -dpRf $(EXTERN_LIB_BOOST_DIR)/lib/* $(INSTALL_LIB_DIR)
+	@cp -dpRf $(EXTERN_LIB_OSQP_DIR)/lib/*.so $(INSTALL_LIB_DIR)
+endif
 	$(INSTALL) -m 0644 -D $(INTERNAL_COM_LIB_DIR)/* -t $(INSTALL_COM_LIB_DIR)
 	$(INSTALL) -m 0755 -D $(INTERNAL_BIN_DIR)/control/* -t $(INSTALL_BIN_DIR)/control
 	$(INSTALL) -m 0644 -D $(TOP_DIR)/modules/control/conf/* -t $(INSTALL_DIR)/modules/control/conf
@@ -118,7 +126,7 @@ TEST_LDFLAG += $(EXTERN_LIB_PROTOBUF_LIB) $(EXTERN_LIB_GFLAGS_LIB) $(EXTERN_LIB_
 TEST_LDFLAG += $(EXTERN_LIB_GTEST_LIB) $(EXTERN_LIB_UTILS_LINUX_LIBS_LIB)
 TEST_LDFLAG += $(EXTERN_LIB_ABSL_LIB) $(EXTERN_LIB_ZLIB_LIB) $(EXTERN_LIB_SQL_LIB)
 TEST_LDFLAG += $(EXTERN_LIB_BOOST_LIB) $(EXTERN_LIB_OSQP_LIB)
-TEST_LDFLAG += -L$(INTERNAL_LIB_DIR) -lproto -lcyber -lcommon
+TEST_LDFLAG += -L$(INTERNAL_LIB_DIR) -lcommon_msgs -lcyber -lcommon
 TEST_LDFLAG += -latomic
 
 define MAKE_SELF_TEST

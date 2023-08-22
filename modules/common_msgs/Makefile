@@ -29,9 +29,10 @@ include $(TOP_DIR)/ambabuild/extern_lib.mk
 
 
 ####################################################################
-## for module library 
+## for module library
 ####################################################################
-SUBDIRS := audio_msgs \
+SUBDIRS := amba_msgs \
+audio_msgs \
 basic_msgs \
 chassis_msgs \
 config_msgs \

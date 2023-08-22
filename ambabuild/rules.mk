@@ -24,7 +24,7 @@
 ######################################################################
 # Component defined variables
 ######################################################################
-# for modules of apollo 
+# for modules of apollo
 SUBMODULES       ?=
 # If Component has sub directories
 SUBDIRS          ?=

@@ -32,7 +32,7 @@ include $(TOP_DIR)/ambabuild/extern_lib.mk
 #add sub modules here and it can auto make
 SUBMODULES := common_msgs common bridge transform drivers canbus canbus_vehicle control guardian\
               localization map planning routing storytelling task_manager dreamview monitor
-#SUBMODULES += amba_cam amba_openod amba_openseg
+SUBMODULES += amba_cam amba_openod amba_openseg
 
 # make cyber first
 all: cyber
@@ -43,7 +43,10 @@ clean: clean_cyber
 	@$(RM) out
 
 # declare necessary dependencies between modules
-all_common: cyber all_common_msgs
+all_amba_cam: cyber
+all_amba_openod: cyber
+all_amba_openseg: cyber
+all_common: cyber
 all_bridge: all_common
 all_transform: all_common
 all_drivers: all_common
@@ -102,7 +105,7 @@ clean_proto_files:
 ## for cyber make, install and clean 
 ####################################################################
 
-cyber:
+cyber: all_common_msgs
 	@echo " compile cyber rt"
 	@$(MAKE) -C cyber --no-print-directory
 	@$(MAKE) -C cyber all_self_tests --no-print-directory

@@ -1,0 +1,39 @@
+syntax = "proto2";
+
+package apollo.amba_cam;
+
+message AMBA_CHUNK_HEADER{
+    optional uint32 Magic =1;       /**< Magic number, shall be AMBA_CHUNK_HDR_MGC */
+    optional uint32 HdrVer=2;      /**< Header version, shall be AMBA_CHUNK_HDR_VER_V00 */
+    optional uint32 HdrSize=3;     /**< Header size, shall be sizeof(AMBA_CHUNK_HEADER_V0_s) */
+    optional int64 ExpTime_sec=4;  /**< Expired time without decimal part in second.
+                                       Invalid when ExpTime_sec and ExpTime_usec are both AMBA_CHUNK_EXPTIME_INVALID */
+    optional int64 ExpTime_usec=5; /**< Expired time only decimal part in micro-second; range: 0 ~ 999999.
+                                       Invalid when ExpTime_sec and ExpTime_usec are both AMBA_CHUNK_EXPTIME_INVALID */
+    optional uint32 DataSize=6;    /**< Chunk data size */
+}
+
+
+message AMBA_CHUNK_PIC_INFO {
+    optional uint32 Magic=1; /**< Magic code, should be AMBA_CHUNK_MAGIC_PIC_INFO */
+    optional uint64 Addr=2;  /**< Global address of memio_source_recv_picinfo which is defined in cvapi_memio_interface.h */
+}
+
+message od_candidate{
+    optional uint32 score=1; /* confidence score                   */
+    optional uint32 field=2; /* field ID, assigned by step1        */
+    optional uint32 class_id=3; /* class ID, assigned by step4        */
+    optional uint32 track_id=4; /* track ID, assigned by tracker      */
+    optional int32 bb_start_row=5;
+    optional int32 bb_start_col=6;
+    optional uint32 bb_height=7;
+    optional uint32 bb_width=8;
+}
+
+message od_out{
+    optional uint32 obj_num=1;          /* size of object list                */
+    optional uint32 frame_num=2;        /* frame_num of the current frame     */
+    optional uint32 captureime=3;       /* capture time of the frame          */
+    repeated od_candidate od_obj=4;
+}
+

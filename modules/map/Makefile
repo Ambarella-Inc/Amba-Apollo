@@ -153,13 +153,13 @@ hdmap_map_test: hdmap_lib
 
 pnc_map_test_obj := $(OBJ_DIR)/modules/map/pnc_map/pnc_map_test.o
 
-pnc_map_test: pnc_map_lib
+pnc_map_test: hdmap_lib pnc_map_lib
 	$(call MAKE_SELF_TEST, $(pnc_map_test_obj), \
 	-L$(INTERNAL_COM_LIB_DIR) -lhdmap_lib -lpnc_map_lib)
 
 path_test_obj := $(OBJ_DIR)/modules/map/pnc_map/path_test.o
 
-path_test: pnc_map_lib
+path_test: hdmap_lib pnc_map_lib
 	$(call MAKE_SELF_TEST, $(path_test_obj), \
 	-L$(INTERNAL_COM_LIB_DIR) -lhdmap_lib -lpnc_map_lib)
 

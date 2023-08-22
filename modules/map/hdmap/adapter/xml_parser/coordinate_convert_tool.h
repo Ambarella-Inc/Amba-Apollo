@@ -16,8 +16,12 @@ limitations under the License.
 
 #include <string>
 
+#include <proj.h>
+
+#if PROJ_VERSION_MAJOR<8
 #define ACCEPT_USE_OF_DEPRECATED_PROJ_API_H
 #include <proj_api.h>
+#endif
 
 #include "modules/map/hdmap/adapter/xml_parser/status.h"
 
@@ -43,9 +47,14 @@ class CoordinateConvertTool {
  private:
   std::string source_convert_param_;
   std::string dst_convert_param_;
-
+#if PROJ_VERSION_MAJOR<8
   projPJ pj_from_;
   projPJ pj_to_;
+#else
+  PJ * pj_conv_;
+  PJ_COORD from_;
+  PJ_COORD to_;
+#endif
 };
 
 }  // namespace adapter

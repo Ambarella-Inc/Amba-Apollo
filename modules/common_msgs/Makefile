@@ -74,6 +74,8 @@ SHARED_LIB_NAMES = common_msgs
 common_msgs_src := $(COMPONENT_SRC)
 common_msgs_obj := $(COMPONENT_OBJ)
 
+all_self_tests:
+
 ####################################################################
 ## install
 ####################################################################

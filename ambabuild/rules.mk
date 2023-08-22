@@ -24,6 +24,8 @@
 ######################################################################
 # Component defined variables
 ######################################################################
+# for modules of apollo 
+SUBMODULES       ?=
 # If Component has sub directories
 SUBDIRS          ?=
 # unit test dir
@@ -72,16 +74,24 @@ LDFLAGS  = $(LINK_FLAGS) $(COMPONENT_LDFLAG) #-ltsan
 
 TMPDIR := $(OBJ_DIR)/$(word 2, $(subst /$(UNIQUE_NAME_TAG)/, ,$(shell pwd)))
 
+#for auto make
+SUBMODULES_ALL = $(addprefix all_, $(SUBMODULES))
 SUBDIRS_ALL   = $(addprefix all_, $(SUBDIRS))
 OBJECTS_ALL   = $(addprefix $(TMPDIR)/, $(COMPONENT_OBJ))
-SUBDIRS_CLEAN = $(addprefix clean_, $(SUBDIRS))
-
 UNIT_TEST_ALL   = $(addprefix all_, $(UNIT_TEST_DIR))
+
+#for auto clean
+SUBMODULES_CLEAN = $(addprefix clean_, $(SUBMODULES))
+SUBDIRS_CLEAN = $(addprefix clean_, $(SUBDIRS))
 UNIT_TEST_CLEAN   = $(addprefix clean_, $(UNIT_TEST_DIR))
 
-.PHONY: $(SUBDIRS_ALL) $(UNIT_TEST_ALL) all
+#for auto install
+SUBMODULES_INSTALL = $(addprefix install_, $(SUBMODULES))
+
+.PHONY: $(SUBMODULES_ALL) $(SUBDIRS_ALL) $(UNIT_TEST_ALL) all cyber
 .PHONY: $(SHARED_LIB_NAMES) $(STATIC_LIB_NAMES) $(EXECUTABLE_FILES)
-.PHONY: $(SUBDIRS_CLEAN) $(UNIT_TEST_CLEAN) clean
+.PHONY: $(SUBMODULES_CLEAN) $(SUBDIRS_CLEAN) $(UNIT_TEST_CLEAN) clean
+
 .PHONY: $(addprefix clean_, $(SHARED_LIB_NAMES)) \
 	$(addprefix clean_, $(STATIC_LIB_NAMES)) \
 	$(addprefix clean_, $(EXECUTABLE_FILES))
@@ -89,11 +99,18 @@ UNIT_TEST_CLEAN   = $(addprefix clean_, $(UNIT_TEST_DIR))
 ######################################################################
 # all
 ######################################################################
-all: tmpdir $(SUBDIRS_ALL) $(UNIT_TEST_ALL) $(OBJECTS_ALL) $(STATIC_LIB_NAMES) \
+all: tmpdir $(SUBMODULES_ALL) $(SUBDIRS_ALL) $(UNIT_TEST_ALL) $(OBJECTS_ALL) $(STATIC_LIB_NAMES) \
 	 $(SHARED_LIB_NAMES) $(COM_SHARED_LIB_NAMES) $(AMBA_COM_SHARED_LIB_NAMES) $(EXECUTABLE_FILES)
 
 tmpdir:
 	@$(MKDIR) $(TMPDIR)
+
+ifneq ($(strip $(SUBMODULES_ALL)),)
+$(SUBMODULES_ALL):
+	@echo "    [Build modules/$(subst all_,,$@)]:"
+	@$(MAKE) -C modules/$(subst all_,,$@) default --no-print-directory
+	@$(MAKE) -C modules/$(subst all_,,$@) all_self_tests --no-print-directory
+endif
 
 ifneq ($(strip $(SUBDIRS_ALL)),)
 $(SUBDIRS_ALL):
@@ -187,10 +204,16 @@ endif
 ######################################################################
 # clean
 ######################################################################
-clean: $(SUBDIRS_CLEAN) $(UNIT_TEST_CLEAN) clean_all \
+clean: $(SUBMODULES_CLEAN) $(SUBDIRS_CLEAN) $(UNIT_TEST_CLEAN) clean_all \
 	$(addprefix clean_, $(SHARED_LIB_NAMES)) \
 	$(addprefix clean_, $(STATIC_LIB_NAMES)) \
 	$(addprefix clean_, $(EXECUTABLE_FILES))
+
+ifneq ($(strip $(SUBMODULES_CLEAN)),)
+$(SUBMODULES_CLEAN):
+	@echo "    [Clean modules/$(subst clean_,,$@)]:"
+	@$(MAKE) -C modules/$(subst clean_,,$@) clean --no-print-directory
+endif
 
 $(SUBDIRS_CLEAN):
 	@echo "    [Clean $(subst clean_,,$@)]:"
@@ -219,6 +242,17 @@ clean_all:
 	-@$(RM) $(TMPDIR)/*.o *.o $(TMPDIR)/*.d .*.d
 
 ######################################################################
+# install
+######################################################################
+install: $(SUBMODULES_INSTALL)
+
+ifneq ($(strip $(SUBMODULES_INSTALL)),)
+$(SUBMODULES_INSTALL):
+	@echo "    [Install modules/$(subst install_,,$@)]:"
+	@$(MAKE) -C modules/$(subst install_,,$@) install --no-print-directory
+endif
+
+######################################################################
 # compile
 ######################################################################
 $(TMPDIR)/%.o: $(shell pwd)/%.cc
@@ -235,4 +269,3 @@ $(TMPDIR)/%.o: $(shell pwd)/%.S
 	@$(GCC) $(CFLAGS) -c -MMD -o $@ $<
 
 -include $(addprefix $(TMPDIR)/, $(COMPONENT_OBJ:.o=.d))
-

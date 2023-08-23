@@ -26,7 +26,7 @@ MAKE_PRINT		=	@
 CVCHIP := CHIP_CV6
 
 ##build in lychee
-ENABLE_LYCHEE := n
+ENABLE_LYCHEE := y
 
 ##Cross compile
 ifeq ($(ENABLE_LYCHEE), y)

@@ -26,6 +26,9 @@ osqp_lib_path="${oss_path}/osqp/lib64"
 tf2_lib_path="${oss_path}/tf2/lib"
 proj_lib_path="${oss_path}/proj/lib64"
 civetweb_lib_path="${oss_path}/civetweb/lib"
+adolc_lib_path="${oss_path}/adol-c/lib64"
+ipopt_lib_path="${oss_path}/Ipopt/lib"
+ad_rss_lib_path="${oss_path}/ad_rss_lib/lib"
 
 for entry in "${fastcdr_lib_path}" \
     "${fastrtps_lib_path}" \
@@ -33,7 +36,10 @@ for entry in "${fastcdr_lib_path}" \
     "${osqp_lib_path}" \
     "${tf2_lib_path}" \
     "${proj_lib_path}" \
-    "${civetweb_lib_path}"; do
+    "${civetweb_lib_path}"\
+    "${adolc_lib_path}" \
+    "${ipopt_lib_path}" \
+    "${ad_rss_lib_path}"; do
     pathprepend "${entry}" LD_LIBRARY_PATH
 done
 
